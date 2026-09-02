@@ -87,12 +87,12 @@
   }
   .wordmark{
     font-family: var(--font-mono);
-    font-size:14px;
-    letter-spacing:0.06em;
-    display:flex; align-items:baseline; gap:8px;
+    font-size:19px;
+    letter-spacing:0.05em;
+    display:flex; align-items:baseline; gap:9px;
   }
-  .wordmark b{ color:var(--ivory); font-weight:600; }
-  .wordmark span{ color:var(--slate); }
+  .wordmark b{ color:var(--ivory); font-weight:700; }
+  .wordmark span{ color:var(--slate); font-size:0.62em; }
   nav.links{ display:flex; gap:28px; font-size:14px; }
   nav.links a{ text-decoration:none; color:var(--slate); transition:color .15s; }
   nav.links a:hover{ color:var(--ivory); }
@@ -137,11 +137,6 @@
     color: var(--brass-bright);
     padding:5px 10px;
     transform: rotate(-2deg);
-  }
-  .case-no{
-    font-family: var(--font-mono);
-    font-size:12px;
-    color: var(--slate);
   }
   h1.headline{
     font-size: clamp(2.6rem, 5.6vw, 4.6rem);
@@ -254,6 +249,83 @@
   .persona-card p{ color:var(--parchment-dim); font-size:14.5px; }
   .persona-card .also{ margin-top:auto; padding-top:12px; border-top:1px dashed var(--line-strong); font-size:13px; color:var(--slate); }
   .persona-card .also b{ color:var(--slate); font-weight:600; }
+
+  /* ---------- PERSONA NEURAL VENN ---------- */
+  .pv-wrap{ display:flex; flex-direction:column; align-items:center; margin-bottom:8px; }
+  .pv-stage{ position:relative; width:min(560px, 100%); aspect-ratio:1; margin-bottom:22px; }
+  svg.pv-field{ position:absolute; inset:0; overflow:visible; }
+  svg.pv-field line{ vector-effect:non-scaling-stroke; }
+  .pv-mesh line{ stroke: rgba(136,145,160,0.14); stroke-width:1; }
+  .pv-edge{ stroke: var(--brass-bright); stroke-width:1.4; fill:none; opacity:0; stroke-dasharray:3 9; transition: opacity 2.2s ease; }
+  .pv-edge.pv-spoke{ stroke-width:1.2; opacity:.55; }
+  .pv-edge.pv-adjacent{ stroke-width:2; opacity:.85; filter: drop-shadow(0 0 5px rgba(224,181,99,0.5)); }
+  .pv-edge.pv-longrange{ stroke-width:1; opacity:.32; stroke-dasharray:2 7; }
+  .pv-edge.pv-flow{ animation: pvFlow 9s linear infinite; }
+  @keyframes pvFlow{ to{ stroke-dashoffset:-140; } }
+  .pv-lobe{
+    position:absolute; width:52%; height:52%; border-radius:50%;
+    left:50%; top:50%; transform:translate(-50%,-50%);
+    background:transparent; mix-blend-mode:screen; opacity:0;
+    transition: opacity 2.6s ease, filter 2.6s ease; pointer-events:none;
+  }
+  .pv-lobe.pv-active{
+    opacity:1;
+    background: radial-gradient(circle at 50% 50%, rgba(224,181,99,0.45) 0%, rgba(224,181,99,0.18) 45%, rgba(224,181,99,0) 74%);
+    filter: drop-shadow(0 0 16px rgba(224,181,99,0.3));
+  }
+  .pv-node{
+    position:absolute; width:13px; height:13px; border-radius:50%;
+    background: var(--ink-900); border:1.5px solid var(--line-strong);
+    transform:translate(-50%,-50%) scale(1);
+    transition: background 2s ease, border-color 2s ease, box-shadow 2s ease, transform 2s ease;
+  }
+  .pv-node.pv-active{
+    background: var(--brass-bright); border-color: var(--brass-bright);
+    box-shadow: 0 0 6px 2px rgba(224,181,99,0.55), 0 0 22px rgba(224,181,99,0.4);
+    transform:translate(-50%,-50%) scale(1.15);
+  }
+  .pv-node.pv-center{ width:16px; height:16px; }
+  .pv-xnode{
+    position:absolute; width:8px; height:8px; border-radius:50%;
+    background: var(--brass-bright); box-shadow: 0 0 10px 3px rgba(224,181,99,0.65);
+    transform:translate(-50%,-50%) scale(0); opacity:0;
+    transition: transform 1.9s cubic-bezier(.2,.9,.35,1), opacity 1.7s ease;
+  }
+  .pv-xnode.pv-active{ opacity:1; transform:translate(-50%,-50%) scale(1); }
+  .pv-label{ position:absolute; transform:translate(-50%,-50%); text-align:center; pointer-events:none; }
+  .pv-label .pv-lcode{ font-family:var(--font-mono); font-size:9px; letter-spacing:.08em; color:var(--slate); transition:color 2s; }
+  .pv-label .pv-lname{ font-family:var(--font-display); font-weight:600; font-size:14px; color:var(--parchment-dim); transition:color 2s; white-space:nowrap; }
+  .pv-label.pv-active .pv-lcode{ color: var(--brass-bright); }
+  .pv-label.pv-active .pv-lname{ color: var(--ivory); }
+  .pv-center-mark{
+    position:absolute; top:50%; left:50%; transform:translate(-50%, calc(-50% - 22px));
+    font-family: var(--font-mono); font-size:9.5px; letter-spacing:.12em; color: var(--slate);
+    text-align:center; z-index:9; pointer-events:none;
+  }
+  .pv-core-glow{
+    position:absolute; left:50%; top:50%; width:60px; height:60px; margin:-30px 0 0 -30px;
+    border-radius:50%; background: radial-gradient(circle, rgba(224,181,99,0.55), rgba(224,181,99,0) 70%);
+    animation: pvBreathe 3.6s ease-in-out infinite; pointer-events:none; z-index:1; filter: blur(2px);
+  }
+  @keyframes pvBreathe{ 0%,100%{ transform:scale(0.85); opacity:.55; } 50%{ transform:scale(1.25); opacity:.95; } }
+  .pv-pulse-ring{
+    position:absolute; left:0; top:0; width:14px; height:14px; margin:-7px 0 0 -7px;
+    border-radius:50%; border:1.5px solid var(--brass-bright); pointer-events:none; z-index:2;
+    animation: pvPulseRing 2.4s cubic-bezier(.2,.6,.35,1) forwards;
+  }
+  .pv-pulse-ring.pv-big{ border-color: rgba(224,181,99,0.8); }
+  @keyframes pvPulseRing{ 0%{ transform:scale(0.4); opacity:.65; } 65%{ opacity:.18; } 100%{ transform:scale(3.2); opacity:0; } }
+  .pv-triggers{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:640px; margin-bottom:18px; }
+  .pv-trig{
+    font-family: var(--font-mono); font-size:12px; letter-spacing:.03em; color: var(--parchment-dim);
+    background: var(--ink-900); border:1px solid var(--line-strong); padding:9px 14px; cursor:pointer;
+    transition: border-color .2s, color .2s, background .2s;
+  }
+  .pv-trig:hover{ border-color: var(--brass); color: var(--ivory); }
+  .pv-trig.pv-on{ border-color: var(--brass-bright); color: var(--ink-950); background: var(--brass-bright); font-weight:600; }
+  .pv-caption{ font-family: var(--font-mono); font-size:13px; color: var(--slate); min-height:1.4em; text-align:center; max-width:54ch; }
+  .pv-caption b{ color: var(--brass-bright); font-weight:600; }
+  .pv-dust{ position:absolute; border-radius:50%; background: var(--slate); pointer-events:none; z-index:0; }
 
   /* ---------- AUDIT LOG PILLARS ---------- */
   .log{
@@ -471,17 +543,17 @@
   <div class="wrap hero-inner">
     <div class="stamp-row">
       <span class="stamp">Pre-Launch</span>
-      <span class="case-no">CASE NO. MSAAS-2026-0901 · OPENED SEP 1, 2026</span>
     </div>
-    <h1 class="headline">World-class management, filed under <em>$10 a month.</em></h1>
-    <p class="hero-sub">A single AI manager that shifts between six personas to run your human team <em>and</em> curate your AI stack — fully auditable, self-learning, and built for founders who need leadership before they can afford it.</p>
+    <h1 class="headline">World-class management, <em>at your fingertips.</em></h1>
+    <p class="hero-sub">One AI manager that shifts between six personas to lead your people <em>and</em> orchestrate your AI stack — fully auditable, self-learning, and built for anyone who needs real leadership, whether that's a five-person team with no AI tools or a founder running a swarm of agents.</p>
     <div class="hero-actions">
       <a class="btn-primary" href="#apply">File Your Interest</a>
       <a class="btn-ghost" href="#questionnaire">Answer the intake questionnaire ↓</a>
     </div>
+    <p style="font-family:var(--font-mono); font-size:12.5px; color:var(--slate); margin-top:20px; letter-spacing:.03em;">Arriving first as an iOS app · phone and video conferencing follow.</p>
 
     <div class="hero-meta">
-      <div><div class="k">Flat fee</div><div class="v">$10 / mo</div></div>
+      <div><div class="k">Flat fee</div><div class="v">$20 / mo</div></div>
       <div><div class="k">Personas on file</div><div class="v">06</div></div>
       <div><div class="k">Audit trail</div><div class="v">100%</div></div>
     </div>
@@ -517,8 +589,21 @@
     <div class="section-head">
       <div class="eyebrow">Personnel File</div>
       <h2>Six personas. One manager.</h2>
-      <p>Your manager doesn't rotate staff — it shifts posture. Each persona below ships standard, included in the flat fee.</p>
+      <p>Your manager doesn't rotate staff one at a time — it can hold several postures at once. Watch which ones light up together depending on what the moment calls for, and notice the pace: nothing snaps on. It takes a beat to register the situation before it responds, the same way a good manager listens before deciding.</p>
     </div>
+
+    <div class="pv-wrap">
+      <div class="pv-stage" id="personaStage">
+        <svg class="pv-field" id="pvField" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+        <div class="pv-core-glow"></div>
+        <div class="pv-center-mark">MSAAS CORE</div>
+      </div>
+      <div class="pv-triggers" id="pvTriggers"></div>
+      <p class="pv-caption" id="pvCaption"></p>
+    </div>
+
+    <div style="height:52px;"></div>
+
     <div class="persona-grid">
       <div class="persona-card">
         <div class="code"><span>P-01</span><span>STRATEGY</span></div>
@@ -598,8 +683,9 @@
     </div>
     <div class="price-block">
       <div class="price-main">
-        <div class="price-figure"><span class="cur">$</span><span class="num">10</span><span class="per">/ month, per manager</span></div>
-        <p style="color:var(--parchment-dim); font-size:14.5px;">Cancel anytime. No setup fee. 7-day trial, no card required.</p>
+        <div class="eyebrow" style="margin-bottom:14px;">Cohort 01 — First 100</div>
+        <div class="price-figure"><span class="cur">$</span><span class="num">20</span><span class="per">/ month, guaranteed for 12 months</span></div>
+        <p style="color:var(--parchment-dim); font-size:14.5px;">First month free, then $20/mo — locked for a full year from your signup date. Cancel anytime, no setup fee.</p>
         <ul>
           <li>All six personas included</li>
           <li>Full audit access — human, LLM, and agent logs</li>
@@ -609,8 +695,10 @@
       </div>
       <div class="price-note">
         <div class="eyebrow">Fine Print, Stated Plainly</div>
-        <p><strong>The $10 covers the Manager — not the AI it runs on.</strong> Model and token costs from whichever LLMs you connect are billed to you directly, at your own provider's rates.</p>
-        <p>No markup, no bundling, no surprise overage. Your manager tracks that spend and tells you exactly where it's going — see Persona P-05 — but it never touches your bill.</p>
+        <p><strong>$20/mo is the Manager's fee — in addition to whatever you pay your AI/LLM provider, not a replacement for it.</strong> Model and token costs from whichever LLMs you connect are billed to you directly, at your own provider's rates.</p>
+        <p>Our orchestration layer is built to use tokens efficiently, but your total AI spend still depends on how much you actually run through it — that's your provider's bill, not ours, and we never mark it up.</p>
+        <p><strong>Rate ladder:</strong> each cohort of 100 signups locks its rate for a full year. Cohort 01 (first 100): $20/mo. Cohort 02 (next 100): $25/mo. The rate keeps climbing by cohort after that — the earlier you sign up, the lower the rate you lock in.</p>
+        <p>We're also building a referral program — bring in a hire, you both get a month free — plus a paid track for anyone actively spreading the word. Details land once enrollment opens.</p>
       </div>
     </div>
 
@@ -620,8 +708,8 @@
       <table class="ledger">
         <thead><tr><th>Alternative</th><th>Typical Cost</th><th>MaaS</th></tr></thead>
         <tbody>
-          <tr><td>Junior manager, full-time</td><td class="old">$60,000 / yr</td><td class="new">$120 / yr</td></tr>
-          <tr><td>Management consultant</td><td class="old">$500 / hr</td><td class="new">$10 / mo</td></tr>
+          <tr><td>Junior manager, full-time</td><td class="old">$60,000 / yr</td><td class="new">$240 / yr</td></tr>
+          <tr><td>Management consultant</td><td class="old">$500 / hr</td><td class="new">$20 / mo</td></tr>
           <tr><td>MLOps / agent orchestration hire</td><td class="old">$80,000 / yr</td><td class="new">Included</td></tr>
           <tr><td>Project management stack</td><td class="old">$50+ / mo</td><td class="new">Included</td></tr>
         </tbody>
@@ -635,9 +723,10 @@
     <div class="section-head">
       <div class="eyebrow">Case Studies We're Watching For</div>
       <h2>Who this is being built for.</h2>
-      <p>MSAAS hasn't shipped yet — these are the situations shaping what we build, not customer quotes. If one sounds like you, the questionnaire below is where you tell us we got it right (or wrong).</p>
+      <p>This isn't only for AI-heavy teams. If you manage people — full stop, no AI stack required — your manager runs point on that too. MSAAS hasn't shipped yet — these are the situations shaping what we build, not customer quotes. If one sounds like you, the questionnaire below is where you tell us we got it right (or wrong).</p>
     </div>
     <div class="scenario-grid">
+      <div class="scenario"><div class="eyebrow">Just people, no AI at all</div><p>"A ten-person shop with zero AI tools and one overworked owner who just needs someone dependable running point on the humans — schedules, check-ins, the stuff a good manager handles."</p></div>
       <div class="scenario"><div class="eyebrow">5 people, 20 AI tools</div><p>"A startup with ChatGPT, Claude, Midjourney, and three custom agents running with no one accountable for prompt quality or token spend."</p></div>
       <div class="scenario"><div class="eyebrow">Support agents, no audit trail</div><p>"A team that deployed AI customer support but can't explain a single decision to a regulator or an anxious customer."</p></div>
       <div class="scenario"><div class="eyebrow">Generative creative, no brand line</div><p>"A creative team where AI output ships faster than anyone can check it still sounds like the brand."</p></div>
@@ -660,7 +749,7 @@
           <div class="eyebrow">Intake Form</div>
           <h2>Application to Hire Your Manager</h2>
         </div>
-        <div class="field-count">10 fields · ~2 min</div>
+        <div class="field-count">11 fields · ~2 min</div>
       </div>
 
       <form id="leadForm">
@@ -727,7 +816,19 @@
         </div>
 
         <div class="f-group">
-          <label class="f-label">$10/mo for the manager, and you bring your own AI token costs — does that feel fair? <span class="req">required</span></label>
+          <label class="f-label">How does your team communicate today? <span class="opt">optional — pick any</span></label>
+          <div class="check-grid" id="commsChannels">
+            <label class="check-item"><input type="checkbox" value="Slack"> Slack</label>
+            <label class="check-item"><input type="checkbox" value="Microsoft Teams"> Microsoft Teams</label>
+            <label class="check-item"><input type="checkbox" value="WhatsApp group"> WhatsApp group</label>
+            <label class="check-item"><input type="checkbox" value="SMS / text"> SMS / text</label>
+            <label class="check-item"><input type="checkbox" value="Email"> Email</label>
+            <label class="check-item"><input type="checkbox" value="In person / phone calls only"> In person / phone calls only</label>
+          </div>
+        </div>
+
+        <div class="f-group">
+          <label class="f-label">$20/mo for the manager, and you bring your own AI token costs — does that feel fair? <span class="req">required</span></label>
           <div class="radio-row" id="budgetReaction">
             <label class="radio-item"><input type="radio" name="budget_reaction" value="Yes, makes total sense" required> Yes — makes total sense, keeps pricing honest</label>
             <label class="radio-item"><input type="radio" name="budget_reaction" value="Yes, but explain it better up front"> Yes, but you'll need to explain that split clearly up front</label>
@@ -768,7 +869,7 @@
       <div class="wordmark"><b>MSAAS</b><span>/ manager-as-a-service</span></div>
       <div class="eyebrow" style="margin:0;">Status: Pre-Launch</div>
     </div>
-    <p class="legal">Manager as a Service is in pre-launch. Nothing on this page is a binding offer or a completed product; pricing described reflects current plans and may change before general availability. The $10/month figure covers the management layer only — connected LLM/AI provider costs are billed to you directly by those providers.</p>
+    <p class="legal">Manager as a Service is in pre-launch. Nothing on this page is a binding offer or a completed product; pricing described reflects current plans and may change before general availability. The $20/month figure covers the management layer only — connected LLM/AI provider costs are billed to you directly by those providers.</p>
   </div>
 </footer>
 
@@ -795,6 +896,7 @@
 
       var manageWhat = Array.from(document.querySelectorAll('#manageWhat input:checked')).map(function(i){return i.value;});
       var topPersona = Array.from(document.querySelectorAll('#topPersona input:checked')).map(function(i){return i.value;});
+      var commsChannels = Array.from(document.querySelectorAll('#commsChannels input:checked')).map(function(i){return i.value;});
 
       if(manageWhat.length === 0){
         msg.textContent = 'Pick at least one thing you\'d want managed.';
@@ -811,6 +913,7 @@
         top_persona: topPersona,
         current_tools: document.getElementById('f-tools').value.trim() || null,
         ai_stack: document.getElementById('f-stack').value.trim() || null,
+        comms_channels: commsChannels,
         budget_reaction: (document.querySelector('input[name=budget_reaction]:checked') || {}).value || null,
         biggest_pain: document.getElementById('f-pain').value.trim() || null,
         comments: document.getElementById('f-comments').value.trim() || null,
@@ -841,5 +944,228 @@
         console.error(err);
       });
     });
+  })();
+</script>
+
+<script>
+  (function(){
+    var personas = [
+      {code:'P-01', name:'Intellectual'},
+      {code:'P-02', name:'Artist'},
+      {code:'P-03', name:'Singer'},
+      {code:'P-04', name:'Diplomat'},
+      {code:'P-05', name:'Analyst'},
+      {code:'P-06', name:'Orchestrator'}
+    ];
+    // 0 Intellectual, 1 Artist, 2 Singer, 3 Diplomat, 4 Analyst, 5 Orchestrator — hexagon order, neighbors = |i-j| mod 6 === 1
+
+    var scenarios = [
+      { label:'Design Review', active:[1,2], desc:'Artist + Singer — creative judgment paired with a story people want to follow.' },
+      { label:'Strategy Meeting', active:[5,4], desc:'Orchestrator + Analyst — AI-stack judgment paired with the numbers.' },
+      { label:'Support Escalation', active:[3,0], desc:'Diplomat + Intellectual — de-escalate the moment, then reason through the fix.' },
+      { label:'Sprint Planning', active:[4,5,0], desc:'Analyst + Orchestrator + Intellectual — ops discipline, AI routing, and the strategic call.' },
+      { label:'Culture Offsite', active:[1,2,3], desc:'Artist + Singer + Diplomat — culture, vision, and the room dynamics, all at once.' },
+      { label:'All Six', active:[0,1,2,3,4,5], desc:'Every persona, connected — the full range this manager can hold at once.' }
+    ];
+
+    var stage = document.getElementById('personaStage');
+    if(!stage) return; // section not present on this page
+
+    var svg = document.getElementById('pvField');
+    var trigEl = document.getElementById('pvTriggers');
+    var captionEl = document.getElementById('pvCaption');
+
+    var CX = 50, CY = 50;
+    var CR = 20;   // lobe center radius (%)
+    var LR = 40;   // outer node/label radius (%)
+
+    function pos(i, r){
+      var angle = (Math.PI * 2 * i) / personas.length - Math.PI/2;
+      return { x: CX + r * Math.cos(angle), y: CY + r * Math.sin(angle) };
+    }
+    function lerp(a,b,t){ return a + (b-a)*t; }
+
+    var outerPos = personas.map(function(_,i){ return pos(i, LR); });
+    var lobePos  = personas.map(function(_,i){ return pos(i, CR); });
+
+    function addLine(parent, x1,y1,x2,y2, cls){
+      var l = document.createElementNS('http://www.w3.org/2000/svg','line');
+      l.setAttribute('x1',x1); l.setAttribute('y1',y1);
+      l.setAttribute('x2',x2); l.setAttribute('y2',y2);
+      if(cls) l.setAttribute('class', cls);
+      parent.appendChild(l);
+      return l;
+    }
+
+    var meshG = document.createElementNS('http://www.w3.org/2000/svg','g');
+    meshG.setAttribute('class','pv-mesh');
+    svg.appendChild(meshG);
+    for(var i=0;i<personas.length;i++){
+      addLine(meshG, CX, CY, outerPos[i].x, outerPos[i].y, null);
+      for(var j=i+1;j<personas.length;j++){
+        addLine(meshG, outerPos[i].x, outerPos[i].y, outerPos[j].x, outerPos[j].y, null);
+      }
+    }
+
+    var activeG = document.createElementNS('http://www.w3.org/2000/svg','g');
+    activeG.setAttribute('class','pv-active-edges');
+    svg.appendChild(activeG);
+
+    // decorative dust — static texture, purely visual
+    for(var d=0; d<46; d++){
+      var dust = document.createElement('div');
+      dust.className = 'pv-dust';
+      var size = 1 + Math.random()*1.6;
+      dust.style.width = size+'px'; dust.style.height = size+'px';
+      dust.style.left = (Math.random()*100)+'%';
+      dust.style.top = (Math.random()*100)+'%';
+      dust.style.opacity = (0.08 + Math.random()*0.28).toFixed(2);
+      stage.appendChild(dust);
+    }
+
+    var lobes = [], nodes = [], labels = [];
+    personas.forEach(function(p, idx){
+      var lp = lobePos[idx], op = outerPos[idx];
+
+      var lobe = document.createElement('div');
+      lobe.className = 'pv-lobe';
+      lobe.style.left = lp.x + '%'; lobe.style.top = lp.y + '%';
+      stage.appendChild(lobe); lobes.push(lobe);
+
+      var node = document.createElement('div');
+      node.className = 'pv-node';
+      node.style.left = op.x + '%'; node.style.top = op.y + '%';
+      stage.appendChild(node); nodes.push(node);
+
+      var lb = document.createElement('div');
+      lb.className = 'pv-label';
+      var lx = CX + (LR+9) * Math.cos((Math.PI*2*idx)/personas.length - Math.PI/2);
+      var ly = CY + (LR+9) * Math.sin((Math.PI*2*idx)/personas.length - Math.PI/2);
+      lb.style.left = lx + '%'; lb.style.top = ly + '%';
+      lb.innerHTML = '<div class="pv-lcode">'+p.code+'</div><div class="pv-lname">'+p.name+'</div>';
+      stage.appendChild(lb); labels.push(lb);
+    });
+
+    var centerNode = document.createElement('div');
+    centerNode.className = 'pv-node pv-center pv-active';
+    centerNode.style.left = '50%'; centerNode.style.top = '50%';
+    stage.appendChild(centerNode);
+
+    scenarios.forEach(function(s, idx){
+      var btn = document.createElement('div');
+      btn.className = 'pv-trig';
+      btn.textContent = s.label;
+      btn.dataset.index = idx;
+      btn.addEventListener('click', function(){ setScenario(idx, true); });
+      trigEl.appendChild(btn);
+    });
+
+    var current = -1;
+    var timer = null;
+    var currentActive = [];
+
+    function spawnPulse(x, y, big){
+      var ring = document.createElement('div');
+      ring.className = 'pv-pulse-ring' + (big ? ' pv-big' : '');
+      ring.style.left = x + '%';
+      ring.style.top = y + '%';
+      stage.appendChild(ring);
+      ring.addEventListener('animationend', function(){ ring.remove(); });
+    }
+
+    function corePulse(){ spawnPulse(50, 50, true); }
+    setInterval(corePulse, 3600);
+    corePulse();
+
+    function nodesPulse(){
+      currentActive.forEach(function(idx, k){
+        setTimeout(function(){
+          var p = outerPos[idx];
+          spawnPulse(p.x, p.y, false);
+        }, 500 + k * 260);
+      });
+    }
+    setInterval(nodesPulse, 3600);
+
+    function isAdjacent(a,b){
+      var d = Math.abs(a-b) % personas.length;
+      return d === 1 || d === personas.length - 1;
+    }
+
+    function setScenario(idx, manual){
+      if(idx === current){ return; }
+      current = idx;
+      var activeSet = scenarios[idx].active;
+      currentActive = activeSet;
+
+      activeG.innerHTML = '';
+      stage.querySelectorAll('.pv-xnode').forEach(function(n){ n.remove(); });
+
+      lobes.forEach(function(l, li){
+        var on = activeSet.indexOf(li) !== -1;
+        l.classList.toggle('pv-active', on);
+        l.style.transitionDelay = on ? (700 + activeSet.indexOf(li) * 650) + 'ms' : '0ms';
+      });
+      nodes.forEach(function(n, ni){
+        var on = activeSet.indexOf(ni) !== -1;
+        n.classList.toggle('pv-active', on);
+        n.style.transitionDelay = on ? (500 + activeSet.indexOf(ni) * 650) + 'ms' : '0ms';
+      });
+      labels.forEach(function(lb, lbi){
+        lb.classList.toggle('pv-active', activeSet.indexOf(lbi) !== -1);
+      });
+      trigEl.querySelectorAll('.pv-trig').forEach(function(b){ b.classList.toggle('pv-on', +b.dataset.index === idx); });
+
+      // spokes: core -> each active node, staggered — deliberately slow
+      activeSet.forEach(function(pIdx, order){
+        var op = outerPos[pIdx];
+        var l = addLine(activeG, CX, CY, op.x, op.y, 'pv-edge pv-spoke');
+        l.style.transitionDelay = (order * 650) + 'ms';
+        requestAnimationFrame(function(){ requestAnimationFrame(function(){
+          l.classList.add('pv-flow');
+          l.style.opacity = '';
+        }); });
+      });
+
+      // pairwise connections among active personas
+      for(var a=0; a<activeSet.length; a++){
+        for(var b=a+1; b<activeSet.length; b++){
+          var ia = activeSet[a], ib = activeSet[b];
+          var pa = outerPos[ia], pb = outerPos[ib];
+          var baseDelay = 1100 + Math.max(a,b) * 650;
+
+          if(isAdjacent(ia, ib)){
+            var l1 = addLine(activeG, pa.x, pa.y, pb.x, pb.y, 'pv-edge pv-adjacent');
+            l1.style.transitionDelay = baseDelay + 'ms';
+            (function(line){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ line.classList.add('pv-flow'); line.style.opacity=''; }); }); })(l1);
+
+            var mx = lerp((pa.x+pb.x)/2, CX, 0.45);
+            var my = lerp((pa.y+pb.y)/2, CY, 0.45);
+            var xn = document.createElement('div');
+            xn.className = 'pv-xnode';
+            xn.style.left = mx + '%'; xn.style.top = my + '%';
+            xn.style.transitionDelay = (baseDelay + 800) + 'ms';
+            stage.appendChild(xn);
+            requestAnimationFrame(function(){ requestAnimationFrame(function(){ xn.classList.add('pv-active'); }); });
+          } else {
+            var l2 = addLine(activeG, pa.x, pa.y, pb.x, pb.y, 'pv-edge pv-longrange');
+            l2.style.transitionDelay = baseDelay + 'ms';
+            (function(line){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ line.classList.add('pv-flow'); line.style.opacity=''; }); }); })(l2);
+          }
+        }
+      }
+
+      captionEl.innerHTML = '<b>' + scenarios[idx].label + '</b> — ' + scenarios[idx].desc;
+
+      if(manual){
+        clearInterval(timer);
+        timer = setInterval(advance, 11000);
+      }
+    }
+
+    function advance(){ setScenario((current + 1) % scenarios.length, false); }
+
+    setScenario(0, false);
+    timer = setInterval(advance, 11000);
   })();
 </script>
