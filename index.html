@@ -1,0 +1,845 @@
+<title>Hire Your Manager</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --ink-950:#12161F;
+    --ink-900:#161B26;
+    --ink-850:#1C2230;
+    --ink-800:#242B3B;
+    --line: rgba(237,227,204,0.14);
+    --line-strong: rgba(237,227,204,0.28);
+    --parchment:#EDE3CC;
+    --parchment-dim:#D8CBA8;
+    --brass:#C99A44;
+    --brass-bright:#E0B563;
+    --ivory:#F3EFE4;
+    --slate:#8891A0;
+    --slate-dim:#5C6577;
+    --ok:#8FAE7C;
+    --font-display:'Fraunces', 'Iowan Old Style', Georgia, serif;
+    --font-body:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+    --font-mono:'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    background: var(--ink-950);
+    color: var(--ivory);
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background: var(--ink-950);
+    color: var(--ivory);
+    font-family: var(--font-body);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;}
+  ::selection{ background: var(--brass); color:var(--ink-950); }
+
+  h1,h2,h3,h4{
+    font-family: var(--font-display);
+    font-weight:600;
+    line-height:1.08;
+    text-wrap: balance;
+    margin:0;
+    color: var(--ivory);
+  }
+  p{ margin:0; }
+  a{ color:inherit; }
+
+  .wrap{
+    max-width: 1120px;
+    margin:0 auto;
+    padding: 0 28px;
+  }
+
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color: var(--brass-bright);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background: var(--brass-bright);
+    display:inline-block;
+    transform:rotate(45deg);
+  }
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position: sticky; top:0; z-index:40;
+    background: rgba(18,22,31,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 28px;
+    max-width:1120px; margin:0 auto;
+  }
+  .wordmark{
+    font-family: var(--font-mono);
+    font-size:14px;
+    letter-spacing:0.06em;
+    display:flex; align-items:baseline; gap:8px;
+  }
+  .wordmark b{ color:var(--ivory); font-weight:600; }
+  .wordmark span{ color:var(--slate); }
+  nav.links{ display:flex; gap:28px; font-size:14px; }
+  nav.links a{ text-decoration:none; color:var(--slate); transition:color .15s; }
+  nav.links a:hover{ color:var(--ivory); }
+  .nav-cta{
+    font-family: var(--font-mono);
+    font-size:13px;
+    padding:9px 16px;
+    border:1px solid var(--brass);
+    color:var(--brass-bright);
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{ background:var(--brass); color:var(--ink-950); }
+  @media (max-width:760px){ nav.links{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 88px 0 70px;
+    border-bottom: 1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(180deg, transparent, transparent 39px, var(--line) 40px);
+    opacity:.5;
+    pointer-events:none;
+  }
+  .hero-inner{ position:relative; }
+  .stamp-row{
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+    margin-bottom:28px;
+  }
+  .stamp{
+    font-family: var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    border:1.5px solid var(--brass);
+    color: var(--brass-bright);
+    padding:5px 10px;
+    transform: rotate(-2deg);
+  }
+  .case-no{
+    font-family: var(--font-mono);
+    font-size:12px;
+    color: var(--slate);
+  }
+  h1.headline{
+    font-size: clamp(2.6rem, 5.6vw, 4.6rem);
+    max-width: 15ch;
+    margin-bottom:22px;
+  }
+  h1.headline em{
+    font-style: italic;
+    color: var(--brass-bright);
+  }
+  .hero-sub{
+    font-size: 19px;
+    color: var(--parchment-dim);
+    max-width: 58ch;
+    margin-bottom: 36px;
+  }
+  .hero-actions{ display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+  .btn-primary{
+    font-family: var(--font-mono);
+    font-size:14px;
+    letter-spacing:.02em;
+    background: var(--brass-bright);
+    color: var(--ink-950);
+    border:none;
+    padding:15px 26px;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+    font-weight:600;
+  }
+  .btn-primary:hover{ background: var(--ivory); }
+  .btn-ghost{
+    font-family: var(--font-mono);
+    font-size:14px;
+    color: var(--parchment-dim);
+    text-decoration:none;
+    border-bottom:1px solid var(--slate-dim);
+    padding-bottom:2px;
+  }
+  .btn-ghost:hover{ color:var(--ivory); border-color:var(--ivory); }
+
+  .hero-meta{
+    margin-top:56px;
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+  }
+  .hero-meta div{
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:18px 20px;
+  }
+  .hero-meta .k{ font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--slate); margin-bottom:6px; }
+  .hero-meta .v{ font-family:var(--font-mono); font-size:20px; color:var(--ivory); font-variant-numeric:tabular-nums; }
+  @media (max-width:700px){ .hero-meta{ grid-template-columns:1fr 1fr; } }
+
+  /* ---------- SECTION shell ---------- */
+  section{ padding: 84px 0; border-bottom:1px solid var(--line); }
+  .section-head{ margin-bottom:44px; max-width:64ch; }
+  .section-head h2{ font-size: clamp(1.8rem, 3vw, 2.5rem); margin-top:10px; }
+  .section-head p{ color:var(--parchment-dim); margin-top:14px; font-size:16.5px; }
+
+  /* ---------- LEDGER TABLE ---------- */
+  .ledger{
+    width:100%;
+    border-collapse:collapse;
+    font-family: var(--font-body);
+  }
+  .ledger th, .ledger td{
+    text-align:left;
+    padding:16px 18px;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+  }
+  .ledger thead th{
+    font-family: var(--font-mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--slate);
+    border-bottom:1px solid var(--line-strong);
+  }
+  .ledger td.old{ color:var(--slate); }
+  .ledger td.new{ color:var(--ok); font-family:var(--font-mono); }
+  .ledger tbody tr:hover{ background: rgba(237,227,204,0.03); }
+  .table-scroll{ overflow-x:auto; }
+
+  /* ---------- PERSONA CARDS ---------- */
+  .persona-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:1px;
+    background: var(--line);
+    border:1px solid var(--line);
+  }
+  @media (max-width:900px){ .persona-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width:600px){ .persona-grid{ grid-template-columns: 1fr; } }
+  .persona-card{
+    background: var(--ink-900);
+    padding:26px 24px;
+    display:flex; flex-direction:column; gap:12px;
+    min-height:220px;
+  }
+  .persona-card .code{
+    font-family:var(--font-mono); font-size:11px; color:var(--brass-bright); letter-spacing:.08em;
+    display:flex; justify-content:space-between;
+  }
+  .persona-card h3{ font-size:21px; }
+  .persona-card p{ color:var(--parchment-dim); font-size:14.5px; }
+  .persona-card .also{ margin-top:auto; padding-top:12px; border-top:1px dashed var(--line-strong); font-size:13px; color:var(--slate); }
+  .persona-card .also b{ color:var(--slate); font-weight:600; }
+
+  /* ---------- AUDIT LOG PILLARS ---------- */
+  .log{
+    font-family: var(--font-mono);
+    border:1px solid var(--line);
+  }
+  .log-line{
+    display:grid;
+    grid-template-columns: 150px 200px 1fr;
+    gap:20px;
+    padding:18px 22px;
+    border-bottom:1px solid var(--line);
+    font-size:13.5px;
+    align-items:baseline;
+  }
+  .log-line:last-child{ border-bottom:none; }
+  .log-line .ts{ color:var(--slate-dim); }
+  .log-line .tag{ color:var(--brass-bright); text-transform:uppercase; letter-spacing:.05em; font-size:12px; }
+  .log-line .msg{ color:var(--parchment); font-family:var(--font-body); font-size:15px; }
+  @media (max-width:700px){ .log-line{ grid-template-columns:1fr; gap:4px; } }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{ display:flex; flex-direction:column; }
+  .tl-step{
+    display:grid;
+    grid-template-columns: 64px 1fr;
+    gap:20px;
+    position:relative;
+    padding-bottom:34px;
+  }
+  .tl-step:last-child{ padding-bottom:0; }
+  .tl-num{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--ink-950);
+    background:var(--brass-bright);
+    width:36px; height:36px;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700;
+    position:relative;
+    z-index:1;
+  }
+  .tl-step:not(:last-child)::before{
+    content:"";
+    position:absolute;
+    left:17px; top:36px; bottom:-2px;
+    width:1px;
+    background: var(--line-strong);
+  }
+  .tl-body h4{ font-size:18px; margin-bottom:6px; }
+  .tl-body p{ color:var(--parchment-dim); font-size:15px; max-width:56ch; }
+
+  /* ---------- PRICING ---------- */
+  .price-block{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:0;
+    border:1px solid var(--line);
+  }
+  @media (max-width:800px){ .price-block{ grid-template-columns:1fr; } }
+  .price-main{
+    padding:44px 40px;
+    border-right:1px solid var(--line);
+    background: var(--ink-900);
+  }
+  @media (max-width:800px){ .price-main{ border-right:none; border-bottom:1px solid var(--line); } }
+  .price-figure{ display:flex; align-items:baseline; gap:8px; margin-bottom:8px; }
+  .price-figure .cur{ font-family:var(--font-mono); font-size:24px; color:var(--brass-bright); }
+  .price-figure .num{ font-family:var(--font-display); font-size:64px; font-weight:600; }
+  .price-figure .per{ font-family:var(--font-mono); font-size:14px; color:var(--slate); }
+  .price-main ul{ list-style:none; padding:0; margin:26px 0 0; display:flex; flex-direction:column; gap:10px; }
+  .price-main li{ font-size:14.5px; color:var(--parchment-dim); display:flex; gap:10px; }
+  .price-main li::before{ content:"—"; color:var(--brass-bright); }
+  .price-note{
+    padding:44px 40px;
+    background: var(--ink-850);
+  }
+  .price-note .eyebrow{ margin-bottom:16px; }
+  .price-note p{ color:var(--parchment-dim); font-size:15px; margin-bottom:14px; }
+  .price-note p:last-child{ margin-bottom:0; }
+  .price-note strong{ color:var(--ivory); }
+
+  /* ---------- SCENARIOS ---------- */
+  .scenario-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media (max-width:800px){ .scenario-grid{ grid-template-columns:1fr; } }
+  .scenario{
+    background: var(--ink-900);
+    padding:28px 26px;
+  }
+  .scenario .eyebrow{ margin-bottom:14px; }
+  .scenario p{ font-family: var(--font-display); font-style:italic; font-size:17px; color:var(--parchment); line-height:1.5; }
+
+  /* ---------- FORM ---------- */
+  .form-shell{
+    border:1px solid var(--line);
+    background: var(--ink-900);
+  }
+  .form-head{
+    padding:34px 40px 28px;
+    border-bottom:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;
+  }
+  .form-head h2{ font-size: 30px; }
+  .form-head .field-count{ font-family:var(--font-mono); font-size:12px; color:var(--slate); white-space:nowrap; padding-top:8px; }
+  form#leadForm{ padding: 34px 40px 40px; display:flex; flex-direction:column; gap:26px; }
+  .f-group{ display:flex; flex-direction:column; gap:8px; }
+  .f-row{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  @media (max-width:700px){ .f-row{ grid-template-columns:1fr; } }
+  .f-label{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color: var(--parchment-dim);
+    display:flex; justify-content:space-between;
+  }
+  .f-label .req{ color:var(--brass-bright); }
+  .f-label .opt{ color:var(--slate-dim); text-transform:none; letter-spacing:0; }
+  input[type=text], input[type=email], textarea, select{
+    width:100%;
+    background: var(--ink-950);
+    border:1px solid var(--line-strong);
+    color: var(--ivory);
+    font-family: var(--font-body);
+    font-size:15px;
+    padding:13px 14px;
+  }
+  input:focus, textarea:focus, select:focus{
+    outline:none;
+    border-color: var(--brass-bright);
+  }
+  textarea{ resize:vertical; min-height:80px; }
+  .check-grid{
+    display:grid; grid-template-columns: repeat(2, 1fr); gap:10px 20px;
+  }
+  @media (max-width:700px){ .check-grid{ grid-template-columns:1fr; } }
+  .check-item{
+    display:flex; align-items:flex-start; gap:10px;
+    border:1px solid var(--line);
+    padding:11px 13px;
+    cursor:pointer;
+    font-size:14px;
+    color: var(--parchment-dim);
+    transition: border-color .15s, background .15s;
+  }
+  .check-item:hover{ border-color: var(--line-strong); }
+  .check-item input{ margin-top:3px; accent-color: var(--brass-bright); flex-shrink:0; }
+  .check-item.checked{ border-color: var(--brass); background: rgba(201,154,68,0.08); color:var(--ivory); }
+  .radio-row{ display:flex; flex-direction:column; gap:9px; }
+  .radio-item{
+    display:flex; align-items:flex-start; gap:10px;
+    font-size:14.5px; color:var(--parchment-dim); cursor:pointer;
+  }
+  .radio-item input{ margin-top:4px; accent-color:var(--brass-bright); }
+  .form-footer{
+    display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+    padding-top:8px; border-top:1px solid var(--line);
+  }
+  .form-footer p{ font-size:12.5px; color: var(--slate-dim); max-width:40ch; }
+  #submitBtn{
+    font-family: var(--font-mono);
+    font-size:14.5px; font-weight:600;
+    background: var(--brass-bright);
+    color: var(--ink-950);
+    border:none;
+    padding:16px 30px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  #submitBtn:hover{ background: var(--ivory); }
+  #submitBtn:disabled{ opacity:.5; cursor:default; }
+  .form-msg{ font-family:var(--font-mono); font-size:13.5px; padding-top:4px; min-height:1.4em; }
+  .form-msg.ok{ color: var(--ok); }
+  .form-msg.err{ color:#D98A6E; }
+
+  .success-panel{
+    display:none;
+    padding:60px 40px;
+    text-align:center;
+    flex-direction:column; align-items:center; gap:16px;
+  }
+  .success-panel .stamp{ transform:rotate(-3deg); font-size:13px; padding:8px 16px; }
+  .success-panel h3{ font-size:28px; margin-top:6px; }
+  .success-panel p{ color:var(--parchment-dim); max-width:46ch; font-size:15px; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding: 48px 0 60px; }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+  .foot-row .wordmark{ opacity:.7; }
+  footer p.legal{ font-size:12.5px; color:var(--slate-dim); max-width:60ch; margin-top:22px; }
+
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+</style>
+
+<header class="site">
+  <div class="nav">
+    <div class="wordmark"><b>MSAAS</b><span>/ manager-as-a-service</span></div>
+    <nav class="links">
+      <a href="#positioning">The Case</a>
+      <a href="#personas">Personas</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#apply">Apply</a>
+    </nav>
+    <a class="nav-cta" href="#apply">File Interest →</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="stamp-row">
+      <span class="stamp">Pre-Launch</span>
+      <span class="case-no">CASE NO. MSAAS-2026-0901 · OPENED SEP 1, 2026</span>
+    </div>
+    <h1 class="headline">World-class management, filed under <em>$10 a month.</em></h1>
+    <p class="hero-sub">A single AI manager that shifts between six personas to run your human team <em>and</em> curate your AI stack — fully auditable, self-learning, and built for founders who need leadership before they can afford it.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#apply">File Your Interest</a>
+      <a class="btn-ghost" href="#questionnaire">Answer the intake questionnaire ↓</a>
+    </div>
+
+    <div class="hero-meta">
+      <div><div class="k">Flat fee</div><div class="v">$10 / mo</div></div>
+      <div><div class="k">Personas on file</div><div class="v">06</div></div>
+      <div><div class="k">Audit trail</div><div class="v">100%</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="positioning">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Exhibit A</div>
+      <h2>The old way doesn't fit teams this size anymore.</h2>
+      <p>Small teams are running human collaborators and AI agents side by side, with no single owner accountable for either. Here's what changes.</p>
+    </div>
+    <div class="table-scroll">
+      <table class="ledger">
+        <thead>
+          <tr><th>Condition</th><th>The Old Way</th><th>Manager as a Service</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Personality</td><td class="old">One manager, one fixed style</td><td class="new">Adaptive persona for every human + AI context</td></tr>
+          <tr><td>Decisions</td><td class="old">Made in black boxes</td><td class="new">Every human call, LLM prompt, and agent action logged</td></tr>
+          <tr><td>Skills</td><td class="old">Static, set at hiring</td><td class="new">Self-learning from feedback and model performance</td></tr>
+          <tr><td>AI tools</td><td class="old">Scattered, unmanaged</td><td class="new">Unified orchestration under one management layer</td></tr>
+          <tr><td>Team structure</td><td class="old">Humans and AI work in silos</td><td class="new">Hybrid design — who does what, and why</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="personas">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Personnel File</div>
+      <h2>Six personas. One manager.</h2>
+      <p>Your manager doesn't rotate staff — it shifts posture. Each persona below ships standard, included in the flat fee.</p>
+    </div>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="code"><span>P-01</span><span>STRATEGY</span></div>
+        <h3>The Intellectual</h3>
+        <p>Strategic frameworks, deep research, and decisions built on evidence rather than instinct.</p>
+        <div class="also"><b>Also handles:</b> picks the right model for the job — reasoning-heavy work, nuance, or privacy-sensitive tasks.</div>
+      </div>
+      <div class="persona-card">
+        <div class="code"><span>P-02</span><span>CULTURE</span></div>
+        <h3>The Artist</h3>
+        <p>Creative direction, culture-building, and storytelling that actually moves people.</p>
+        <div class="also"><b>Also handles:</b> reviews AI-generated creative for brand consistency and tone.</div>
+      </div>
+      <div class="persona-card">
+        <div class="code"><span>P-03</span><span>COMMS</span></div>
+        <h3>The Singer</h3>
+        <p>Rallies the team, celebrates wins, and casts a vision people want to follow.</p>
+        <div class="also"><b>Also handles:</b> turns agent dashboards and reports into narratives people actually read.</div>
+      </div>
+      <div class="persona-card">
+        <div class="code"><span>P-04</span><span>MEDIATION</span></div>
+        <h3>The Diplomat</h3>
+        <p>Conflict resolution, political navigation, and bridge-building across silos.</p>
+        <div class="also"><b>Also handles:</b> mediates human-AI friction — when the team resists a tool, or an agent overreaches.</div>
+      </div>
+      <div class="persona-card">
+        <div class="code"><span>P-05</span><span>OPERATIONS</span></div>
+        <h3>The Analyst</h3>
+        <p>KPI architecture, data-driven execution, and operational discipline.</p>
+        <div class="also"><b>Also handles:</b> tracks token cost per outcome and flags model drift before it costs you.</div>
+      </div>
+      <div class="persona-card">
+        <div class="code"><span>P-06</span><span>AI OPS</span></div>
+        <h3>The Orchestrator</h3>
+        <p>Runs your LLM fleet and agent swarm — prompt governance, model routing, workflow design.</p>
+        <div class="also"><b>Also handles:</b> human-in-the-loop checkpoints so agents never run further than you allow.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="audit">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Standing Policy</div>
+      <h2>Three pillars, logged continuously.</h2>
+    </div>
+    <div class="log">
+      <div class="log-line"><span class="ts">00:00:01</span><span class="tag">Auditable</span><span class="msg">Every human decision, LLM prompt, and agent action is traced, timestamped, and reviewable. No black boxes, anywhere.</span></div>
+      <div class="log-line"><span class="ts">00:00:02</span><span class="tag">Self-Learning</span><span class="msg">Compounds effectiveness from team feedback, model performance, and where agents succeed or need a human to step in.</span></div>
+      <div class="log-line"><span class="ts">00:00:03</span><span class="tag">Self-Improving</span><span class="msg">New personas and capabilities unlock as your team and your AI stack grow — it gets better because it works with both.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Intake Procedure</div>
+      <h2>How the file gets opened.</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-step"><div class="tl-num">1</div><div class="tl-body"><h4>Onboard</h4><p>Tell your manager about your humans, your AI stack, and how work actually moves today.</p></div></div>
+      <div class="tl-step"><div class="tl-num">2</div><div class="tl-body"><h4>Calibrate</h4><p>It designs the human-AI collaboration model that fits — who owns what, and at what level of autonomy.</p></div></div>
+      <div class="tl-step"><div class="tl-num">3</div><div class="tl-body"><h4>Orchestrate</h4><p>Daily leadership for your people, daily curation of your LLMs, daily supervision of your agents.</p></div></div>
+      <div class="tl-step"><div class="tl-num">4</div><div class="tl-body"><h4>Audit</h4><p>Review every decision, every prompt, every agent action — and the reasoning behind each one.</p></div></div>
+      <div class="tl-step"><div class="tl-num">5</div><div class="tl-body"><h4>Evolve</h4><p>It learns from outcomes automatically. No re-onboarding, no re-training sessions.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Fee Schedule</div>
+      <h2>One flat rate. No management-consultant math.</h2>
+    </div>
+    <div class="price-block">
+      <div class="price-main">
+        <div class="price-figure"><span class="cur">$</span><span class="num">10</span><span class="per">/ month, per manager</span></div>
+        <p style="color:var(--parchment-dim); font-size:14.5px;">Cancel anytime. No setup fee. 7-day trial, no card required.</p>
+        <ul>
+          <li>All six personas included</li>
+          <li>Full audit access — human, LLM, and agent logs</li>
+          <li>Self-learning and self-improving, automatically</li>
+          <li>Model-agnostic: OpenAI, Anthropic, Google, Meta, or your own</li>
+        </ul>
+      </div>
+      <div class="price-note">
+        <div class="eyebrow">Fine Print, Stated Plainly</div>
+        <p><strong>The $10 covers the Manager — not the AI it runs on.</strong> Model and token costs from whichever LLMs you connect are billed to you directly, at your own provider's rates.</p>
+        <p>No markup, no bundling, no surprise overage. Your manager tracks that spend and tells you exactly where it's going — see Persona P-05 — but it never touches your bill.</p>
+      </div>
+    </div>
+
+    <div style="height:44px;"></div>
+
+    <div class="table-scroll">
+      <table class="ledger">
+        <thead><tr><th>Alternative</th><th>Typical Cost</th><th>MaaS</th></tr></thead>
+        <tbody>
+          <tr><td>Junior manager, full-time</td><td class="old">$60,000 / yr</td><td class="new">$120 / yr</td></tr>
+          <tr><td>Management consultant</td><td class="old">$500 / hr</td><td class="new">$10 / mo</td></tr>
+          <tr><td>MLOps / agent orchestration hire</td><td class="old">$80,000 / yr</td><td class="new">Included</td></tr>
+          <tr><td>Project management stack</td><td class="old">$50+ / mo</td><td class="new">Included</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="scenarios">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Case Studies We're Watching For</div>
+      <h2>Who this is being built for.</h2>
+      <p>MSAAS hasn't shipped yet — these are the situations shaping what we build, not customer quotes. If one sounds like you, the questionnaire below is where you tell us we got it right (or wrong).</p>
+    </div>
+    <div class="scenario-grid">
+      <div class="scenario"><div class="eyebrow">5 people, 20 AI tools</div><p>"A startup with ChatGPT, Claude, Midjourney, and three custom agents running with no one accountable for prompt quality or token spend."</p></div>
+      <div class="scenario"><div class="eyebrow">Support agents, no audit trail</div><p>"A team that deployed AI customer support but can't explain a single decision to a regulator or an anxious customer."</p></div>
+      <div class="scenario"><div class="eyebrow">Generative creative, no brand line</div><p>"A creative team where AI output ships faster than anyone can check it still sounds like the brand."</p></div>
+      <div class="scenario"><div class="eyebrow">Coding copilots, no review layer</div><p>"An engineering team with Copilot and Cursor in every editor, and no one tracking which agent-written commits actually hold up."</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="apply" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Application</div>
+      <h2 id="questionnaire">Tell us what you'd need before you'd hire this.</h2>
+      <p>Two minutes. This shapes which persona ships first and how we explain the pricing split — nothing here commits you to anything.</p>
+    </div>
+
+    <div class="form-shell">
+      <div class="form-head">
+        <div>
+          <div class="eyebrow">Intake Form</div>
+          <h2>Application to Hire Your Manager</h2>
+        </div>
+        <div class="field-count">10 fields · ~2 min</div>
+      </div>
+
+      <form id="leadForm">
+        <div class="f-row">
+          <div class="f-group">
+            <label class="f-label" for="f-email">Email <span class="req">required</span></label>
+            <input type="email" id="f-email" name="email" required placeholder="you@company.com">
+          </div>
+          <div class="f-group">
+            <label class="f-label" for="f-name">Name <span class="opt">optional</span></label>
+            <input type="text" id="f-name" name="name" placeholder="Full name">
+          </div>
+        </div>
+
+        <div class="f-row">
+          <div class="f-group">
+            <label class="f-label" for="f-role">Your role <span class="opt">optional</span></label>
+            <input type="text" id="f-role" name="role" placeholder="Founder, COO, Eng lead...">
+          </div>
+          <div class="f-group">
+            <label class="f-label" for="f-team">Team size <span class="req">required</span></label>
+            <select id="f-team" name="team_size" required>
+              <option value="" disabled selected>Choose one</option>
+              <option>Just me</option>
+              <option>2–10</option>
+              <option>11–50</option>
+              <option>51–200</option>
+              <option>200+</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="f-group">
+          <label class="f-label">What would you need this manager to run? <span class="req">required — pick any</span></label>
+          <div class="check-grid" id="manageWhat">
+            <label class="check-item"><input type="checkbox" value="Human team"> Human team (people, culture, 1:1s)</label>
+            <label class="check-item"><input type="checkbox" value="AI / LLM tools"> AI &amp; LLM tools we already use</label>
+            <label class="check-item"><input type="checkbox" value="AI agents"> Autonomous AI agents / workflows</label>
+            <label class="check-item"><input type="checkbox" value="Both equally"> Both, and I don't want two separate systems</label>
+          </div>
+        </div>
+
+        <div class="f-group">
+          <label class="f-label">Which personas matter most to you? <span class="opt">optional — pick any</span></label>
+          <div class="check-grid" id="topPersona">
+            <label class="check-item"><input type="checkbox" value="The Intellectual"> The Intellectual — strategy &amp; research</label>
+            <label class="check-item"><input type="checkbox" value="The Artist"> The Artist — creative &amp; culture</label>
+            <label class="check-item"><input type="checkbox" value="The Singer"> The Singer — comms &amp; vision</label>
+            <label class="check-item"><input type="checkbox" value="The Diplomat"> The Diplomat — conflict &amp; mediation</label>
+            <label class="check-item"><input type="checkbox" value="The Analyst"> The Analyst — KPIs &amp; ops</label>
+            <label class="check-item"><input type="checkbox" value="The Orchestrator"> The Orchestrator — AI/LLM ops</label>
+          </div>
+        </div>
+
+        <div class="f-row">
+          <div class="f-group">
+            <label class="f-label" for="f-tools">What do you use today to manage the team? <span class="opt">optional</span></label>
+            <textarea id="f-tools" name="current_tools" placeholder="Asana, a shared doc, nothing formal..."></textarea>
+          </div>
+          <div class="f-group">
+            <label class="f-label" for="f-stack">Your current AI / LLM stack? <span class="opt">optional</span></label>
+            <textarea id="f-stack" name="ai_stack" placeholder="ChatGPT Plus, Claude, Copilot, custom agents..."></textarea>
+          </div>
+        </div>
+
+        <div class="f-group">
+          <label class="f-label">$10/mo for the manager, and you bring your own AI token costs — does that feel fair? <span class="req">required</span></label>
+          <div class="radio-row" id="budgetReaction">
+            <label class="radio-item"><input type="radio" name="budget_reaction" value="Yes, makes total sense" required> Yes — makes total sense, keeps pricing honest</label>
+            <label class="radio-item"><input type="radio" name="budget_reaction" value="Yes, but explain it better up front"> Yes, but you'll need to explain that split clearly up front</label>
+            <label class="radio-item"><input type="radio" name="budget_reaction" value="Not sure yet"> Not sure — depends what our token spend would look like</label>
+            <label class="radio-item"><input type="radio" name="budget_reaction" value="No, expected it all-inclusive"> No — I'd expect one all-inclusive price</label>
+          </div>
+        </div>
+
+        <div class="f-group">
+          <label class="f-label" for="f-pain">Biggest management pain point right now? <span class="opt">optional</span></label>
+          <textarea id="f-pain" name="biggest_pain" placeholder="What's actually broken today?"></textarea>
+        </div>
+
+        <div class="f-group">
+          <label class="f-label" for="f-comments">Anything else we should know? <span class="opt">optional</span></label>
+          <textarea id="f-comments" name="comments"></textarea>
+        </div>
+
+        <div class="form-footer">
+          <p>Filed straight to the MSAAS intake ledger. No spam — just a note when we open enrollment.</p>
+          <button type="submit" id="submitBtn">File My Application →</button>
+        </div>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+
+      <div class="success-panel" id="successPanel">
+        <span class="stamp">Application Received</span>
+        <h3>You're on the file.</h3>
+        <p>Thanks — your answers go straight into shaping which persona ships first. We'll reach out when enrollment opens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="wordmark"><b>MSAAS</b><span>/ manager-as-a-service</span></div>
+      <div class="eyebrow" style="margin:0;">Status: Pre-Launch</div>
+    </div>
+    <p class="legal">Manager as a Service is in pre-launch. Nothing on this page is a binding offer or a completed product; pricing described reflects current plans and may change before general availability. The $10/month figure covers the management layer only — connected LLM/AI provider costs are billed to you directly by those providers.</p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var SUPABASE_URL = "https://bfjkzvkwxexuxggqbvnj.supabase.co";
+    var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJmamt6dmt3eGV4dXhnZ3Fidm5qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUzNzg3MDksImV4cCI6MjEwMDk1NDcwOX0.8NWgQ0ftP0ACHC1mTheyRBH6KTkAIb2ZjKDOrEBBQ1g";
+
+    // checked-state styling for checkbox cards
+    document.querySelectorAll('.check-item input[type=checkbox]').forEach(function(cb){
+      cb.addEventListener('change', function(){
+        cb.closest('.check-item').classList.toggle('checked', cb.checked);
+      });
+    });
+
+    var form = document.getElementById('leadForm');
+    var msg = document.getElementById('formMsg');
+    var btn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      msg.textContent = '';
+      msg.className = 'form-msg';
+
+      var manageWhat = Array.from(document.querySelectorAll('#manageWhat input:checked')).map(function(i){return i.value;});
+      var topPersona = Array.from(document.querySelectorAll('#topPersona input:checked')).map(function(i){return i.value;});
+
+      if(manageWhat.length === 0){
+        msg.textContent = 'Pick at least one thing you\'d want managed.';
+        msg.className = 'form-msg err';
+        return;
+      }
+
+      var payload = {
+        email: document.getElementById('f-email').value.trim(),
+        name: document.getElementById('f-name').value.trim() || null,
+        role: document.getElementById('f-role').value.trim() || null,
+        team_size: document.getElementById('f-team').value,
+        manage_what: manageWhat,
+        top_persona: topPersona,
+        current_tools: document.getElementById('f-tools').value.trim() || null,
+        ai_stack: document.getElementById('f-stack').value.trim() || null,
+        budget_reaction: (document.querySelector('input[name=budget_reaction]:checked') || {}).value || null,
+        biggest_pain: document.getElementById('f-pain').value.trim() || null,
+        comments: document.getElementById('f-comments').value.trim() || null,
+        source: 'hiremaas_landing'
+      };
+
+      btn.disabled = true;
+      btn.textContent = 'Filing…';
+
+      fetch(SUPABASE_URL + '/rest/v1/msaas_leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(payload)
+      }).then(function(res){
+        if(!res.ok){ return res.text().then(function(t){ throw new Error(t || ('HTTP ' + res.status)); }); }
+        form.style.display = 'none';
+        document.getElementById('successPanel').style.display = 'flex';
+      }).catch(function(err){
+        msg.textContent = 'Something went wrong filing this — try again in a moment.';
+        msg.className = 'form-msg err';
+        btn.disabled = false;
+        btn.textContent = 'File My Application →';
+        console.error(err);
+      });
+    });
+  })();
+</script>
