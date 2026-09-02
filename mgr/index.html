@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manager Dashboard - Hire Mass</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+    :root {
+      --ink-950: #12161F;
+      --ink-900: #161B26;
+      --ink-850: #1C2230;
+      --ink-800: #242B3B;
+      --line: rgba(237, 227, 204, 0.14);
+      --line-strong: rgba(237, 227, 204, 0.28);
+      --parchment: #EDE3CC;
+      --parchment-dim: #D8CBA8;
+      --brass: #C99A44;
+      --brass-bright: #E0B563;
+      --ivory: #F3EFE4;
+      --slate: #8891A0;
+      --slate-dim: #5C6577;
+      --ok: #8FAE7C;
+      --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+      --font-body: 'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+      background: var(--ink-950);
+      color: var(--ivory);
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--ink-950);
+      color: var(--ivory);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; }
+    ::selection { background: var(--brass); color: var(--ink-950); }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      line-height: 1.08;
+      margin: 0;
+      color: var(--ivory);
+    }
+    p { margin: 0; }
+    a { color: inherit; }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    header.site {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(18, 22, 31, 0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 28px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .wordmark {
+      font-family: var(--font-mono);
+      font-size: 19px;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+    }
+
+    .wordmark b { color: var(--ivory); font-weight: 700; }
+    .wordmark span { color: var(--slate); font-size: 0.62em; }
+
+    main {
+      padding: 60px 28px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--slate);
+      margin-bottom: 32px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--brass);
+      color: var(--ink-950);
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .button:hover {
+      background: var(--brass-bright);
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+
+    .status-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+      background: rgba(18, 22, 31, 0.4);
+    }
+
+    .status-card h3 {
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .status-card p {
+      color: var(--slate);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="nav">
+      <div class="wordmark">
+        <b>HireMass</b>
+        <span>Manager</span>
+      </div>
+      <nav></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Manager Dashboard</h1>
+      <p>Coming soon. Your command center for managing hiring and operations.</p>
+      <button class="button">Sign In</button>
+    </section>
+
+    <section class="status-grid">
+      <div class="status-card">
+        <h3>Dashboard</h3>
+        <p>Real-time hiring metrics, team performance, and operational insights.</p>
+      </div>
+      <div class="status-card">
+        <h3>Candidates</h3>
+        <p>Manage and track candidates through the hiring pipeline.</p>
+      </div>
+      <div class="status-card">
+        <h3>Team</h3>
+        <p>View and manage your management team and reports.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
