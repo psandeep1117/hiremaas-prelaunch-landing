@@ -1,16 +1,16 @@
-# HireMass Subdomain Setup Guide
+# HireMAAS Subdomain Setup Guide
 
 ## What Was Created
 
 ### Folder Structure
 ```
-MSAAS/
-├── CNAME (fixed: now says "hiremass.com")
+HireMAAS/
+├── CNAME (fixed: now says "hiremaas.com")
 ├── index.html (main site)
-├── manager/
-│   └── index.html (m.hiremass.com manager interface)
+├── mgr/
+│   └── index.html (mgr.hiremaas.com manager interface)
 ├── api/
-│   └── README.md (api.hiremass.com documentation)
+│   └── README.md (api.hiremaas.com documentation)
 ├── DNS_SETUP.md (this setup guide)
 └── .git/
 ```
@@ -21,36 +21,36 @@ MSAAS/
 See `DNS_SETUP.md` for full details. Add these records:
 
 ```
-m     → CNAME → psandeep1117.github.io
+mgr   → CNAME → psandeep1117.github.io
 api   → CNAME → [choose your API host]
 ```
 
 ### 2. Commit Changes to GitHub
 ```bash
 git add .
-git commit -m "Add subdomains: m.hiremass.com (manager) and api.hiremass.com (API)"
+git commit -m "feat: Add mgr.hiremaas.com (manager) and api.hiremaas.com (API)"
 git push origin main
 ```
 
 ### 3. Enable GitHub Pages (if not already)
-- Go to MSAAS repo → Settings → Pages
+- Go to HireMAAS repo → Settings → Pages
 - Source: main branch, / (root folder)
 - Custom domain: Leave blank (Namecheap handles it)
 
 ### 4. Wait for DNS Propagation
 - Takes 5-30 minutes
-- Test with: `nslookup m.hiremass.com`
+- Test with: `nslookup mgr.hiremaas.com`
 
 ## What Each Subdomain Does
 
-### m.hiremass.com (Manager Interface)
+### mgr.hiremaas.com (Manager Interface)
 - **Status**: Live dashboard ready
-- **Files**: `/manager/index.html`
+- **Files**: `/mgr/index.html`
 - **Purpose**: Manager login and control center
-- **Route**: GitHub Pages serves from `/manager` folder
+- **Route**: GitHub Pages serves from `/mgr` folder
 - **Next**: Add authentication, real dashboard features
 
-### api.hiremass.com (API Backend)
+### api.hiremaas.com (API Backend)
 - **Status**: Configuration ready, no backend yet
 - **Files**: `/api/README.md` (documentation placeholder)
 - **Purpose**: REST API for manager and frontend
@@ -60,14 +60,14 @@ git push origin main
 ## GitHub Pages Routing
 
 GitHub Pages automatically routes subdomains:
-- `hiremass.com` → serves `/index.html`
-- `m.hiremass.com` → serves `/manager/index.html`
-- `api.hiremass.com` → (points to external API server, not served by GitHub Pages)
+- `hiremaas.com` → serves `/index.html`
+- `mgr.hiremaas.com` → serves `/mgr/index.html`
+- `api.hiremaas.com` → (points to external API server, not served by GitHub Pages)
 
 This works because:
 1. Namecheap DNS records point both to `psandeep1117.github.io`
 2. GitHub Pages checks the `Host` header
-3. Routes to `/` for main domain, `/manager` for subdomain
+3. Routes to `/` for main domain, `/mgr` for subdomain
 
 ## API Setup Options
 
@@ -107,9 +107,9 @@ Choose based on your needs:
 
 | File | Purpose |
 |------|---------|
-| `CNAME` | Tells GitHub Pages domain is hiremass.com |
+| `CNAME` | Tells GitHub Pages domain is hiremaas.com |
 | `index.html` | Main marketing site |
-| `manager/index.html` | Manager dashboard interface |
+| `mgr/index.html` | Manager dashboard interface |
 | `api/README.md` | API documentation and DNS setup |
 | `DNS_SETUP.md` | Detailed DNS configuration steps |
 | `SUBDOMAIN_SETUP_GUIDE.md` | This file |
@@ -128,17 +128,17 @@ Choose based on your needs:
 After DNS propagates:
 ```bash
 # Test main site
-curl https://hiremass.com
+curl https://hiremaas.com
 
 # Test manager subdomain
-curl https://m.hiremass.com
+curl https://mgr.hiremaas.com
 
 # Test API DNS (should resolve, backend not yet live)
-nslookup api.hiremass.com
+nslookup api.hiremaas.com
 
 # Or in browser:
-# https://hiremass.com → main site
-# https://m.hiremass.com → manager dashboard
+# https://hiremaas.com → main site
+# https://mgr.hiremaas.com → manager dashboard
 ```
 
 ## Support
@@ -148,9 +148,9 @@ If subdomains don't work:
 2. Wait for propagation (5-30 min)
 3. Clear browser cache
 4. Check GitHub Pages settings
-5. Verify CNAME file exists and shows "hiremass.com"
+5. Verify CNAME file exists and shows "hiremaas.com"
 
 ---
 
-**Last Updated**: 2026-09-02
-**Status**: Subdomains structure ready, DNS configuration pending
+**Last Updated**: 2026-09-04
+**Status**: Subdomains structure ready, separate repos deployed and live

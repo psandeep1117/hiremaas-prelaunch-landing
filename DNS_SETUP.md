@@ -1,16 +1,16 @@
-# DNS Setup for HireMass Subdomains
+# DNS Setup for HireMAAS Subdomains
 
 ## Overview
 You have three domains to configure in Namecheap:
-1. **hiremass.com** (main site - already configured)
-2. **m.hiremass.com** (manager interface)
-3. **api.hiremass.com** (API backend)
+1. **hiremaas.com** (main site - already configured)
+2. **mgr.hiremaas.com** (manager interface)
+3. **api.hiremaas.com** (API backend)
 
 ## Namecheap DNS Configuration
 
 ### Step 1: Go to Namecheap Dashboard
 - Log in to your Namecheap account
-- Find **hiremass.com** in your domains list
+- Find **hiremaas.com** in your domains list
 - Click "Manage" next to the domain
 
 ### Step 2: Configure DNS Records
@@ -25,15 +25,15 @@ Value: psandeep1117.github.io
 TTL: 3600
 ```
 
-#### Manager Subdomain (m.hiremass.com)
+#### Manager Subdomain (mgr.hiremaas.com)
 ```
 Type: CNAME
-Host: m
+Host: mgr
 Value: psandeep1117.github.io
 TTL: 3600
 ```
 
-#### API Subdomain (api.hiremass.com)
+#### API Subdomain (api.hiremaas.com)
 Choose ONE option based on where you'll host the API:
 
 **Option A: GitHub Pages (same as main)**
@@ -70,14 +70,14 @@ TTL: 3600
 
 ## GitHub Pages Configuration
 
-### For m.hiremass.com:
-GitHub Pages will automatically route to `m.hiremass.com` if:
-1. DNS CNAME record for `m` points to `psandeep1117.github.io`
-2. The `/manager` folder exists in your repo (already created)
+### For mgr.hiremaas.com:
+GitHub Pages will automatically route to `mgr.hiremaas.com` if:
+1. DNS CNAME record for `mgr` points to `psandeep1117.github.io`
+2. The `/mgr` folder exists in your repo (already created)
 3. GitHub Pages is enabled in repo settings
 
 ### Verify in GitHub:
-1. Go to your MSAAS repo settings
+1. Go to your HireMAAS repo settings
 2. Scroll to "Pages" section
 3. Source: Deploy from a branch
 4. Branch: main (or your default branch)
@@ -90,32 +90,32 @@ After setting DNS records:
 - **5-30 minutes**: DNS propagates globally
 - **Test**: Use `nslookup` or `dig`:
   ```
-  nslookup m.hiremass.com
-  nslookup api.hiremass.com
+  nslookup mgr.hiremaas.com
+  nslookup api.hiremaas.com
   ```
 
 ## Verification Checklist
 
-- [ ] CNAME record for `m` created in Namecheap
+- [ ] CNAME record for `mgr` created in Namecheap
 - [ ] CNAME/A record for `api` created in Namecheap
-- [ ] `/manager` folder exists with index.html
+- [ ] `/mgr` folder exists with index.html
 - [ ] `/api` folder exists with README.md
 - [ ] DNS propagated (test with nslookup)
-- [ ] m.hiremass.com loads manager interface
-- [ ] api.hiremass.com resolves to your API host
+- [ ] mgr.hiremaas.com loads manager interface
+- [ ] api.hiremaas.com resolves to your API host
 
 ## Troubleshooting
 
 **Subdomain not working after DNS update?**
 1. Wait 5-30 minutes for DNS propagation
 2. Clear browser cache (Ctrl+Shift+Delete)
-3. Verify DNS with: `nslookup m.hiremass.com`
+3. Verify DNS with: `nslookup mgr.hiremaas.com`
 4. Check GitHub Pages settings are enabled
 
 **CNAME conflicts?**
 - Each subdomain needs its own DNS record
-- Use `Host: m` for m.hiremass.com (not `Host: m.hiremass.com`)
-- Use `Host: api` for api.hiremass.com (not `Host: api.hiremass.com`)
+- Use `Host: mgr` for mgr.hiremaas.com (not `Host: mgr.hiremaas.com`)
+- Use `Host: api` for api.hiremaas.com (not `Host: api.hiremaas.com`)
 
 **API subdomain not connecting?**
 - Verify API host is running and accessible
