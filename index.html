@@ -463,6 +463,8 @@
     outline:none;
     border-color: var(--brass-bright);
   }
+  input.field-invalid{ border-color:#D98A6E; }
+  .field-err{ font-family:var(--font-mono); font-size:12px; color:#D98A6E; margin-top:6px; min-height:1.2em; }
   textarea{ resize:vertical; min-height:80px; }
   .check-grid{
     display:grid; grid-template-columns: repeat(2, 1fr); gap:10px 20px;
@@ -523,16 +525,109 @@
   .foot-row .wordmark{ opacity:.7; }
   footer p.legal{ font-size:12.5px; color:var(--slate-dim); max-width:60ch; margin-top:22px; }
 
+  /* ---------- GATED SIGNUP BAR ---------- */
+  .pricing-banner{ border:1px solid var(--line); background: var(--ink-900); padding:24px 32px; margin-bottom:36px; }
+  .gated-wrap{ border:1px solid var(--line); background: var(--ink-900); padding:40px; display:none; }
+  .gated-wrap.gated-visible{ display:block; }
+  .gated-copy{ font-size:16px; color:var(--parchment); max-width:60ch; margin-bottom:8px; }
+  .gated-copy b{ color:var(--brass-bright); }
+  .gated-disclaimer{ font-size:13px; color:var(--slate); max-width:60ch; margin-bottom:22px; }
+  .gated-track{ width:100%; height:10px; background:var(--ink-950); border:1px solid var(--line-strong); overflow:hidden; }
+  .gated-fill{ height:100%; background: linear-gradient(90deg, var(--brass), var(--brass-bright)); width:0%; transition: width 1.4s cubic-bezier(.2,.8,.3,1); }
+  .gated-count{ font-family:var(--font-mono); font-size:12px; color:var(--slate); margin-top:10px; text-align:right; }
+
+  /* ---------- CAROUSEL STEPPER ---------- */
+  .stepper{ display:flex; align-items:center; gap:0; padding:0 40px; margin-top:6px; }
+  .step-dot{
+    font-family:var(--font-mono); font-size:12px; color:var(--slate);
+    width:28px; height:28px; border-radius:50%; border:1.5px solid var(--line-strong);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    transition: border-color .3s, color .3s, background .3s;
+  }
+  .step-dot.step-done{ background:var(--brass-bright); border-color:var(--brass-bright); color:var(--ink-950); }
+  .step-dot.step-current{ border-color:var(--brass-bright); color:var(--ivory); }
+  .step-line{ flex:1; height:1.5px; background:var(--line-strong); margin:0 8px; position:relative; overflow:hidden; }
+  .step-line::after{ content:""; position:absolute; inset:0; background:var(--brass-bright); transform:scaleX(0); transform-origin:left; transition: transform .4s ease; }
+  .step-line.step-line-done::after{ transform:scaleX(1); }
+  .step-labels{ display:flex; justify-content:space-between; padding:8px 40px 0; font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--slate-dim); }
+  .step-labels span.step-label-current{ color:var(--brass-bright); }
+
+  /* ---------- CAROUSEL ---------- */
+  .carousel-viewport{ overflow:hidden; }
+  .carousel-track{ display:flex; transition: transform .5s cubic-bezier(.2,.8,.3,1); }
+  .slide{ min-width:100%; padding: 34px 40px 40px; display:flex; flex-direction:column; gap:26px; box-sizing:border-box; }
+  .slide-nav{ display:flex; align-items:center; justify-content:flex-end; gap:20px; padding-top:8px; border-top:1px solid var(--line); flex-wrap:wrap; }
+  .btn-back{
+    font-family: var(--font-mono); font-size:13.5px; color:var(--parchment-dim);
+    background:transparent; border:1px solid var(--line-strong); padding:13px 20px; cursor:pointer;
+  }
+  .btn-back:hover{ border-color:var(--ivory); color:var(--ivory); }
+  .btn-next{
+    font-family: var(--font-mono); font-size:14.5px; font-weight:600;
+    background: var(--brass-bright); color: var(--ink-950); border:none;
+    padding:13px 26px; cursor:pointer; white-space:nowrap;
+  }
+  .btn-next:hover{ background: var(--ivory); }
+  .btn-next:disabled{ opacity:.4; cursor:default; }
+
+  /* ---------- COMBOBOX ---------- */
+  .combo{ position:relative; }
+  .combo-input{ width:100%; }
+  .combo-dropdown{
+    position:absolute; left:0; right:0; top:calc(100% + 4px); z-index:10;
+    background: var(--ink-850); border:1px solid var(--line-strong);
+    max-height:220px; overflow-y:auto; display:none;
+  }
+  .combo-dropdown.combo-open{ display:block; }
+  .combo-option{
+    padding:10px 14px; font-size:14.5px; color:var(--parchment-dim); cursor:pointer;
+    display:flex; justify-content:space-between; gap:10px;
+  }
+  .combo-option:hover, .combo-option.combo-highlight{ background: rgba(224,181,99,0.12); color:var(--ivory); }
+  .combo-option .combo-new{ font-family:var(--font-mono); font-size:10.5px; color:var(--brass-bright); text-transform:uppercase; letter-spacing:.05em; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:2px; }
+  .chip{
+    display:flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:12.5px; color:var(--ivory);
+    background: rgba(201,154,68,0.14); border:1px solid var(--brass); padding:6px 10px 6px 12px;
+  }
+  .chip button{
+    background:none; border:none; color:var(--brass-bright); cursor:pointer; font-size:14px; line-height:1;
+    padding:0;
+  }
+  .chip button:hover{ color:var(--ivory); }
+
+  /* ---------- REPEATABLE STACK ROWS ---------- */
+  .f-hint{ font-size:12.5px; color:var(--slate-dim); margin:-4px 0 2px; }
+  #stackRows{ display:flex; flex-direction:column; gap:10px; }
+  .stack-row{ display:flex; align-items:center; gap:10px; }
+  .stack-row .combo-input{ flex:1; }
+  .stack-row-remove{
+    flex-shrink:0; width:32px; height:32px;
+    display:flex; align-items:center; justify-content:center;
+    background:transparent; border:1px solid var(--line-strong); color:var(--slate);
+    cursor:pointer; font-size:16px; line-height:1;
+  }
+  .stack-row-remove:hover{ border-color:#D98A6E; color:#D98A6E; }
+  .btn-add-row{
+    align-self:flex-start;
+    font-family: var(--font-mono); font-size:12.5px; color:var(--brass-bright);
+    background:transparent; border:1px dashed var(--line-strong); padding:9px 16px;
+    cursor:pointer; margin-top:2px;
+  }
+  .btn-add-row:hover{ border-color:var(--brass-bright); color:var(--ivory); }
+
+  /* ---------- SLIDE VALIDATION MESSAGE ---------- */
+  .slide-nav p.err{ color:#D98A6E; }
+
   @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
 </style>
 
 <header class="site">
   <div class="nav">
-    <div class="wordmark"><b>MSAAS</b><span>/ manager-as-a-service</span></div>
+    <div class="wordmark"><b>MAAS</b><span>/ manager-as-a-service</span></div>
     <nav class="links">
-      <a href="#positioning">The Case</a>
       <a href="#personas">Personas</a>
-      <a href="#pricing">Pricing</a>
       <a href="#apply">Apply</a>
     </nav>
     <a class="nav-cta" href="#apply">File Interest →</a>
@@ -551,36 +646,6 @@
       <a class="btn-ghost" href="#questionnaire">Answer the intake questionnaire ↓</a>
     </div>
     <p style="font-family:var(--font-mono); font-size:12.5px; color:var(--slate); margin-top:20px; letter-spacing:.03em;">Arriving first as an iOS app · phone and video conferencing follow.</p>
-
-    <div class="hero-meta">
-      <div><div class="k">Flat fee</div><div class="v">$20 / mo</div></div>
-      <div><div class="k">Personas on file</div><div class="v">06</div></div>
-      <div><div class="k">Audit trail</div><div class="v">100%</div></div>
-    </div>
-  </div>
-</section>
-
-<section id="positioning">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Exhibit A</div>
-      <h2>The old way doesn't fit teams this size anymore.</h2>
-      <p>Small teams are running human collaborators and AI agents side by side, with no single owner accountable for either. Here's what changes.</p>
-    </div>
-    <div class="table-scroll">
-      <table class="ledger">
-        <thead>
-          <tr><th>Condition</th><th>The Old Way</th><th>Manager as a Service</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Personality</td><td class="old">One manager, one fixed style</td><td class="new">Adaptive persona for every human + AI context</td></tr>
-          <tr><td>Decisions</td><td class="old">Made in black boxes</td><td class="new">Every human call, LLM prompt, and agent action logged</td></tr>
-          <tr><td>Skills</td><td class="old">Static, set at hiring</td><td class="new">Self-learning from feedback and model performance</td></tr>
-          <tr><td>AI tools</td><td class="old">Scattered, unmanaged</td><td class="new">Unified orchestration under one management layer</td></tr>
-          <tr><td>Team structure</td><td class="old">Humans and AI work in silos</td><td class="new">Hybrid design — who does what, and why</td></tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 </section>
 
@@ -596,52 +661,12 @@
       <div class="pv-stage" id="personaStage">
         <svg class="pv-field" id="pvField" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
         <div class="pv-core-glow"></div>
-        <div class="pv-center-mark">MSAAS CORE</div>
+        <div class="pv-center-mark">MAAS CORE</div>
       </div>
       <div class="pv-triggers" id="pvTriggers"></div>
       <p class="pv-caption" id="pvCaption"></p>
     </div>
 
-    <div style="height:52px;"></div>
-
-    <div class="persona-grid">
-      <div class="persona-card">
-        <div class="code"><span>P-01</span><span>STRATEGY</span></div>
-        <h3>The Intellectual</h3>
-        <p>Strategic frameworks, deep research, and decisions built on evidence rather than instinct.</p>
-        <div class="also"><b>Also handles:</b> picks the right model for the job — reasoning-heavy work, nuance, or privacy-sensitive tasks.</div>
-      </div>
-      <div class="persona-card">
-        <div class="code"><span>P-02</span><span>CULTURE</span></div>
-        <h3>The Artist</h3>
-        <p>Creative direction, culture-building, and storytelling that actually moves people.</p>
-        <div class="also"><b>Also handles:</b> reviews AI-generated creative for brand consistency and tone.</div>
-      </div>
-      <div class="persona-card">
-        <div class="code"><span>P-03</span><span>COMMS</span></div>
-        <h3>The Singer</h3>
-        <p>Rallies the team, celebrates wins, and casts a vision people want to follow.</p>
-        <div class="also"><b>Also handles:</b> turns agent dashboards and reports into narratives people actually read.</div>
-      </div>
-      <div class="persona-card">
-        <div class="code"><span>P-04</span><span>MEDIATION</span></div>
-        <h3>The Diplomat</h3>
-        <p>Conflict resolution, political navigation, and bridge-building across silos.</p>
-        <div class="also"><b>Also handles:</b> mediates human-AI friction — when the team resists a tool, or an agent overreaches.</div>
-      </div>
-      <div class="persona-card">
-        <div class="code"><span>P-05</span><span>OPERATIONS</span></div>
-        <h3>The Analyst</h3>
-        <p>KPI architecture, data-driven execution, and operational discipline.</p>
-        <div class="also"><b>Also handles:</b> tracks token cost per outcome and flags model drift before it costs you.</div>
-      </div>
-      <div class="persona-card">
-        <div class="code"><span>P-06</span><span>AI OPS</span></div>
-        <h3>The Orchestrator</h3>
-        <p>Runs your LLM fleet and agent swarm — prompt governance, model routing, workflow design.</p>
-        <div class="also"><b>Also handles:</b> human-in-the-loop checkpoints so agents never run further than you allow.</div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -659,78 +684,14 @@
   </div>
 </section>
 
-<section id="how">
+<section id="gated-signup" style="padding-top:0; border-bottom:none;">
   <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Intake Procedure</div>
-      <h2>How the file gets opened.</h2>
-    </div>
-    <div class="timeline">
-      <div class="tl-step"><div class="tl-num">1</div><div class="tl-body"><h4>Onboard</h4><p>Tell your manager about your humans, your AI stack, and how work actually moves today.</p></div></div>
-      <div class="tl-step"><div class="tl-num">2</div><div class="tl-body"><h4>Calibrate</h4><p>It designs the human-AI collaboration model that fits — who owns what, and at what level of autonomy.</p></div></div>
-      <div class="tl-step"><div class="tl-num">3</div><div class="tl-body"><h4>Orchestrate</h4><p>Daily leadership for your people, daily curation of your LLMs, daily supervision of your agents.</p></div></div>
-      <div class="tl-step"><div class="tl-num">4</div><div class="tl-body"><h4>Audit</h4><p>Review every decision, every prompt, every agent action — and the reasoning behind each one.</p></div></div>
-      <div class="tl-step"><div class="tl-num">5</div><div class="tl-body"><h4>Evolve</h4><p>It learns from outcomes automatically. No re-onboarding, no re-training sessions.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<section id="pricing">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Fee Schedule</div>
-      <h2>One flat rate. No management-consultant math.</h2>
-    </div>
-    <div class="price-block">
-      <div class="price-main">
-        <div class="eyebrow" style="margin-bottom:14px;">Cohort 01 — First 100</div>
-        <div class="price-figure"><span class="cur">$</span><span class="num">20</span><span class="per">/ month, guaranteed for 12 months</span></div>
-        <p style="color:var(--parchment-dim); font-size:14.5px;">First month free, then $20/mo — locked for a full year from your signup date. Cancel anytime, no setup fee.</p>
-        <ul>
-          <li>All six personas included</li>
-          <li>Full audit access — human, LLM, and agent logs</li>
-          <li>Self-learning and self-improving, automatically</li>
-          <li>Model-agnostic: OpenAI, Anthropic, Google, Meta, or your own</li>
-        </ul>
-      </div>
-      <div class="price-note">
-        <div class="eyebrow">Fine Print, Stated Plainly</div>
-        <p><strong>$20/mo is the Manager's fee — in addition to whatever you pay your AI/LLM provider, not a replacement for it.</strong> Model and token costs from whichever LLMs you connect are billed to you directly, at your own provider's rates.</p>
-        <p>Our orchestration layer is built to use tokens efficiently, but your total AI spend still depends on how much you actually run through it — that's your provider's bill, not ours, and we never mark it up.</p>
-        <p><strong>Rate ladder:</strong> each cohort of 100 signups locks its rate for a full year. Cohort 01 (first 100): $20/mo. Cohort 02 (next 100): $25/mo. The rate keeps climbing by cohort after that — the earlier you sign up, the lower the rate you lock in.</p>
-        <p>We're also building a referral program — bring in a hire, you both get a month free — plus a paid track for anyone actively spreading the word. Details land once enrollment opens.</p>
-      </div>
-    </div>
-
-    <div style="height:44px;"></div>
-
-    <div class="table-scroll">
-      <table class="ledger">
-        <thead><tr><th>Alternative</th><th>Typical Cost</th><th>MaaS</th></tr></thead>
-        <tbody>
-          <tr><td>Junior manager, full-time</td><td class="old">$60,000 / yr</td><td class="new">$240 / yr</td></tr>
-          <tr><td>Management consultant</td><td class="old">$500 / hr</td><td class="new">$20 / mo</td></tr>
-          <tr><td>MLOps / agent orchestration hire</td><td class="old">$80,000 / yr</td><td class="new">Included</td></tr>
-          <tr><td>Project management stack</td><td class="old">$50+ / mo</td><td class="new">Included</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section id="scenarios">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Case Studies We're Watching For</div>
-      <h2>Who this is being built for.</h2>
-      <p>This isn't only for AI-heavy teams. If you manage people — full stop, no AI stack required — your manager runs point on that too. MSAAS hasn't shipped yet — these are the situations shaping what we build, not customer quotes. If one sounds like you, the questionnaire below is where you tell us we got it right (or wrong).</p>
-    </div>
-    <div class="scenario-grid">
-      <div class="scenario"><div class="eyebrow">Just people, no AI at all</div><p>"A ten-person shop with zero AI tools and one overworked owner who just needs someone dependable running point on the humans — schedules, check-ins, the stuff a good manager handles."</p></div>
-      <div class="scenario"><div class="eyebrow">5 people, 20 AI tools</div><p>"A startup with ChatGPT, Claude, Midjourney, and three custom agents running with no one accountable for prompt quality or token spend."</p></div>
-      <div class="scenario"><div class="eyebrow">Support agents, no audit trail</div><p>"A team that deployed AI customer support but can't explain a single decision to a regulator or an anxious customer."</p></div>
-      <div class="scenario"><div class="eyebrow">Generative creative, no brand line</div><p>"A creative team where AI output ships faster than anyone can check it still sounds like the brand."</p></div>
-      <div class="scenario"><div class="eyebrow">Coding copilots, no review layer</div><p>"An engineering team with Copilot and Cursor in every editor, and no one tracking which agent-written commits actually hold up."</p></div>
+    <div class="gated-wrap" id="gatedWrap">
+      <div class="eyebrow" style="margin-bottom:16px;">Cohort Lock</div>
+      <p class="gated-copy"><b>The first-100 free month is filling up.</b> Applications so far are filling that first cohort.</p>
+      <p class="gated-disclaimer">Once the cohort is full, new applicants start at $25.00/month with no free month.</p>
+      <div class="gated-track"><div class="gated-fill" id="gatedFill"></div></div>
+      <div class="gated-count" id="gatedCount"></div>
     </div>
   </div>
 </section>
@@ -739,8 +700,13 @@
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Application</div>
-      <h2 id="questionnaire">Tell us what you'd need before you'd hire this.</h2>
-      <p>Two minutes. This shapes which persona ships first and how we explain the pricing split — nothing here commits you to anything.</p>
+      <h2 id="questionnaire">Tell us what you'd need before you'd hire MAAS.</h2>
+      <p>Four short steps. This shapes the interaction of the personas — nothing here commits you to anything.</p>
+    </div>
+
+    <div class="pricing-banner">
+      <p class="gated-copy"><b>First 100 applicants get their first month free.</b></p>
+      <p class="gated-disclaimer" style="margin-bottom:0;">After that, pricing is $25.00/month. Bring whatever LLM you already use and trust — Claude, ChatGPT, Gemini, or your own — there's no separate bill from us for it; you keep paying your provider directly, the way you already do.</p>
     </div>
 
     <div class="form-shell">
@@ -749,115 +715,169 @@
           <div class="eyebrow">Intake Form</div>
           <h2>Application to Hire Your Manager</h2>
         </div>
-        <div class="field-count">11 fields · ~2 min</div>
+        <div class="field-count" id="fieldCount">Step 1 of 4 · About You</div>
+      </div>
+
+      <div class="stepper">
+        <div class="step-dot step-current" id="stepDot1">1</div>
+        <div class="step-line" id="stepLine1"></div>
+        <div class="step-dot" id="stepDot2">2</div>
+        <div class="step-line" id="stepLine2"></div>
+        <div class="step-dot" id="stepDot3">3</div>
+        <div class="step-line" id="stepLine3"></div>
+        <div class="step-dot" id="stepDot4">4</div>
+      </div>
+      <div class="step-labels">
+        <span id="stepLabel1" class="step-label-current">About You</span>
+        <span id="stepLabel2">Your Setup</span>
+        <span id="stepLabel3">Comms Channels</span>
+        <span id="stepLabel4">Value &amp; Price</span>
       </div>
 
       <form id="leadForm">
-        <div class="f-row">
-          <div class="f-group">
-            <label class="f-label" for="f-email">Email <span class="req">required</span></label>
-            <input type="email" id="f-email" name="email" required placeholder="you@company.com">
-          </div>
-          <div class="f-group">
-            <label class="f-label" for="f-name">Name <span class="opt">optional</span></label>
-            <input type="text" id="f-name" name="name" placeholder="Full name">
-          </div>
-        </div>
+        <div class="carousel-viewport">
+          <div class="carousel-track" id="carouselTrack">
 
-        <div class="f-row">
-          <div class="f-group">
-            <label class="f-label" for="f-role">Your role <span class="opt">optional</span></label>
-            <input type="text" id="f-role" name="role" placeholder="Founder, COO, Eng lead...">
-          </div>
-          <div class="f-group">
-            <label class="f-label" for="f-team">Team size <span class="req">required</span></label>
-            <select id="f-team" name="team_size" required>
-              <option value="" disabled selected>Choose one</option>
-              <option>Just me</option>
-              <option>2–10</option>
-              <option>11–50</option>
-              <option>51–200</option>
-              <option>200+</option>
-            </select>
-          </div>
-        </div>
+            <!-- SLIDE 1 — About You -->
+            <div class="slide" data-slide="0">
+              <div class="f-row">
+                <div class="f-group">
+                  <label class="f-label" for="f-name">Full name <span class="req">required</span></label>
+                  <input type="text" id="f-name" name="name" required placeholder="Full name">
+                </div>
+                <div class="f-group">
+                  <label class="f-label" for="f-company">Company name <span class="opt">optional</span></label>
+                  <input type="text" id="f-company" name="company_name" placeholder="Company / team name">
+                </div>
+              </div>
+              <div class="f-row">
+                <div class="f-group">
+                  <label class="f-label" for="f-email">Email <span class="req">required</span></label>
+                  <input type="email" id="f-email" name="email" required placeholder="you@company.com">
+                  <div class="field-err" id="emailErr"></div>
+                </div>
+                <div class="f-group">
+                  <label class="f-label" for="f-role">Your role <span class="opt">optional</span></label>
+                  <input type="text" id="f-role" name="role" placeholder="Founder, COO, Eng lead...">
+                </div>
+              </div>
+              <div class="f-row">
+                <div class="f-group">
+                  <label class="f-label" for="f-team">Team size (people/systems) <span class="req">required</span></label>
+                  <select id="f-team" name="team_size" required>
+                    <option value="" disabled selected>Choose one</option>
+                    <option>Just me</option>
+                    <option>2–5</option>
+                    <option>6–10</option>
+                    <option>11–50</option>
+                    <option>51–200</option>
+                    <option>200+</option>
+                  </select>
+                </div>
+                <div class="f-group">
+                  <label class="f-label" for="f-industry">Industry / domain <span class="req">required</span></label>
+                  <div class="combo" id="industryCombo">
+                    <input type="text" class="combo-input" id="f-industry" autocomplete="off" placeholder="Start typing — SaaS, Healthcare...">
+                    <input type="hidden" id="f-industry-id">
+                    <div class="combo-dropdown" id="industryDropdown"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="slide-nav">
+                <button type="button" class="btn-next" data-next="1" disabled>Continue →</button>
+              </div>
+            </div>
 
-        <div class="f-group">
-          <label class="f-label">What would you need this manager to run? <span class="req">required — pick any</span></label>
-          <div class="check-grid" id="manageWhat">
-            <label class="check-item"><input type="checkbox" value="Human team"> Human team (people, culture, 1:1s)</label>
-            <label class="check-item"><input type="checkbox" value="AI / LLM tools"> AI &amp; LLM tools we already use</label>
-            <label class="check-item"><input type="checkbox" value="AI agents"> Autonomous AI agents / workflows</label>
-            <label class="check-item"><input type="checkbox" value="Both equally"> Both, and I don't want two separate systems</label>
+            <!-- SLIDE 2 — Your Setup -->
+            <div class="slide" data-slide="1">
+              <div class="f-group">
+                <label class="f-label">Who you manage <span class="req">required</span></label>
+                <div class="radio-row" id="whoYouManage">
+                  <label class="radio-item"><input type="radio" name="who_you_manage" value="People" required> People</label>
+                  <label class="radio-item"><input type="radio" name="who_you_manage" value="AI Agents"> AI Agents</label>
+                  <label class="radio-item"><input type="radio" name="who_you_manage" value="Both"> Both</label>
+                </div>
+              </div>
+              <div class="f-group" id="stackGroup">
+                <label class="f-label">AI stack in use <span class="req" id="stackReqTag">required</span></label>
+                <p class="f-hint">Add one tool per row — typing gets you suggestions from what other applicants use.</p>
+                <div id="stackRows">
+                  <div class="stack-row combo">
+                    <input type="text" class="combo-input stack-input" autocomplete="off" placeholder="Start typing — Claude, LangChain, Pinecone...">
+                    <div class="combo-dropdown"></div>
+                  </div>
+                </div>
+                <button type="button" class="btn-add-row" id="addStackRow">+ Add another tool</button>
+              </div>
+              <div class="f-group">
+                <label class="f-label" for="f-tools">What do you use today to manage the team? <span class="opt">optional</span></label>
+                <textarea id="f-tools" name="current_tools" placeholder="Asana, a shared doc, nothing formal..."></textarea>
+              </div>
+              <div class="slide-nav">
+                <div style="display:flex; gap:12px;">
+                  <button type="button" class="btn-back" data-back="0">← Back</button>
+                  <button type="button" class="btn-next" data-next="2" disabled>Continue →</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 3 — Comms Channels -->
+            <div class="slide" data-slide="2">
+              <div class="f-group">
+                <label class="f-label">How does your team communicate? <span class="req">required — pick all that apply</span></label>
+                <div class="check-grid" id="commsChannels">
+                  <label class="check-item"><input type="checkbox" value="Email"> Email</label>
+                  <label class="check-item"><input type="checkbox" value="Slack/Zoom/Teams"> Slack / Zoom / Teams</label>
+                  <label class="check-item"><input type="checkbox" value="SMS"> SMS</label>
+                  <label class="check-item"><input type="checkbox" value="WhatsApp"> WhatsApp</label>
+                  <label class="check-item"><input type="checkbox" value="AgentMail/Buzz"> AgentMail / Buzz</label>
+                  <label class="check-item"><input type="checkbox" value="In-person/phone calls"> In-person / phone calls</label>
+                </div>
+              </div>
+              <div class="slide-nav">
+                <div style="display:flex; gap:12px;">
+                  <button type="button" class="btn-back" data-back="1">← Back</button>
+                  <button type="button" class="btn-next" data-next="3" disabled>Continue →</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 4 — Value & Price -->
+            <div class="slide" data-slide="3">
+              <div class="f-group">
+                <label class="f-label" for="f-pain">Biggest management pain point right now? <span class="req">required</span></label>
+                <textarea id="f-pain" name="biggest_pain" required placeholder="What's actually broken today?"></textarea>
+              </div>
+              <div class="f-group">
+                <label class="f-label" for="f-comments">Tell us more about your business <span class="opt">optional</span></label>
+                <textarea id="f-comments" name="comments"></textarea>
+              </div>
+              <div class="f-group">
+                <label class="f-label">What would this be worth to you? <span class="req">required</span></label>
+                <div class="radio-row" id="pricingWillingness">
+                  <label class="radio-item"><input type="radio" name="pricing_willingness" value="$25" required> $25/mo</label>
+                  <label class="radio-item"><input type="radio" name="pricing_willingness" value="$50"> $50/mo</label>
+                  <label class="radio-item"><input type="radio" name="pricing_willingness" value="$75"> $75/mo</label>
+                </div>
+              </div>
+              <div class="form-footer">
+                <p>Filed straight to the MAAS intake ledger — no spam, just a note when we're ready to launch. Nothing further needed on your end.</p>
+                <div style="display:flex; gap:12px;">
+                  <button type="button" class="btn-back" data-back="2">← Back</button>
+                  <button type="submit" id="submitBtn" disabled>File My Application →</button>
+                </div>
+              </div>
+              <div class="form-msg" id="formMsg"></div>
+            </div>
+
           </div>
         </div>
-
-        <div class="f-group">
-          <label class="f-label">Which personas matter most to you? <span class="opt">optional — pick any</span></label>
-          <div class="check-grid" id="topPersona">
-            <label class="check-item"><input type="checkbox" value="The Intellectual"> The Intellectual — strategy &amp; research</label>
-            <label class="check-item"><input type="checkbox" value="The Artist"> The Artist — creative &amp; culture</label>
-            <label class="check-item"><input type="checkbox" value="The Singer"> The Singer — comms &amp; vision</label>
-            <label class="check-item"><input type="checkbox" value="The Diplomat"> The Diplomat — conflict &amp; mediation</label>
-            <label class="check-item"><input type="checkbox" value="The Analyst"> The Analyst — KPIs &amp; ops</label>
-            <label class="check-item"><input type="checkbox" value="The Orchestrator"> The Orchestrator — AI/LLM ops</label>
-          </div>
-        </div>
-
-        <div class="f-row">
-          <div class="f-group">
-            <label class="f-label" for="f-tools">What do you use today to manage the team? <span class="opt">optional</span></label>
-            <textarea id="f-tools" name="current_tools" placeholder="Asana, a shared doc, nothing formal..."></textarea>
-          </div>
-          <div class="f-group">
-            <label class="f-label" for="f-stack">Your current AI / LLM stack? <span class="opt">optional</span></label>
-            <textarea id="f-stack" name="ai_stack" placeholder="ChatGPT Plus, Claude, Copilot, custom agents..."></textarea>
-          </div>
-        </div>
-
-        <div class="f-group">
-          <label class="f-label">How does your team communicate today? <span class="opt">optional — pick any</span></label>
-          <div class="check-grid" id="commsChannels">
-            <label class="check-item"><input type="checkbox" value="Slack"> Slack</label>
-            <label class="check-item"><input type="checkbox" value="Microsoft Teams"> Microsoft Teams</label>
-            <label class="check-item"><input type="checkbox" value="WhatsApp group"> WhatsApp group</label>
-            <label class="check-item"><input type="checkbox" value="SMS / text"> SMS / text</label>
-            <label class="check-item"><input type="checkbox" value="Email"> Email</label>
-            <label class="check-item"><input type="checkbox" value="In person / phone calls only"> In person / phone calls only</label>
-          </div>
-        </div>
-
-        <div class="f-group">
-          <label class="f-label">$20/mo for the manager, and you bring your own AI token costs — does that feel fair? <span class="req">required</span></label>
-          <div class="radio-row" id="budgetReaction">
-            <label class="radio-item"><input type="radio" name="budget_reaction" value="Yes, makes total sense" required> Yes — makes total sense, keeps pricing honest</label>
-            <label class="radio-item"><input type="radio" name="budget_reaction" value="Yes, but explain it better up front"> Yes, but you'll need to explain that split clearly up front</label>
-            <label class="radio-item"><input type="radio" name="budget_reaction" value="Not sure yet"> Not sure — depends what our token spend would look like</label>
-            <label class="radio-item"><input type="radio" name="budget_reaction" value="No, expected it all-inclusive"> No — I'd expect one all-inclusive price</label>
-          </div>
-        </div>
-
-        <div class="f-group">
-          <label class="f-label" for="f-pain">Biggest management pain point right now? <span class="opt">optional</span></label>
-          <textarea id="f-pain" name="biggest_pain" placeholder="What's actually broken today?"></textarea>
-        </div>
-
-        <div class="f-group">
-          <label class="f-label" for="f-comments">Anything else we should know? <span class="opt">optional</span></label>
-          <textarea id="f-comments" name="comments"></textarea>
-        </div>
-
-        <div class="form-footer">
-          <p>Filed straight to the MSAAS intake ledger. No spam — just a note when we open enrollment.</p>
-          <button type="submit" id="submitBtn">File My Application →</button>
-        </div>
-        <div class="form-msg" id="formMsg"></div>
       </form>
 
       <div class="success-panel" id="successPanel">
         <span class="stamp">Application Received</span>
         <h3>You're on the file.</h3>
-        <p>Thanks — your answers go straight into shaping which persona ships first. We'll reach out when enrollment opens.</p>
+        <p>Thanks — your answers go straight into shaping the interaction of the personas. There's nothing else to do on your end: we'll send you a note the moment MAAS is ready to launch, and if you're one of our first 100 applicants, your first month is on us.</p>
       </div>
     </div>
   </div>
@@ -866,25 +886,314 @@
 <footer>
   <div class="wrap">
     <div class="foot-row">
-      <div class="wordmark"><b>MSAAS</b><span>/ manager-as-a-service</span></div>
+      <div class="wordmark"><b>MAAS</b><span>/ manager-as-a-service</span></div>
       <div class="eyebrow" style="margin:0;">Status: Pre-Launch</div>
     </div>
-    <p class="legal">Manager as a Service is in pre-launch. Nothing on this page is a binding offer or a completed product; pricing described reflects current plans and may change before general availability. The $20/month figure covers the management layer only — connected LLM/AI provider costs are billed to you directly by those providers.</p>
+    <p class="legal">MAAS is in pre-launch. Nothing on this page is a binding offer or a completed product — terms may change before general availability.</p>
   </div>
 </footer>
 
 <script>
   (function(){
-    var SUPABASE_URL = "https://bfjkzvkwxexuxggqbvnj.supabase.co";
-    var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJmamt6dmt3eGV4dXhnZ3Fidm5qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUzNzg3MDksImV4cCI6MjEwMDk1NDcwOX0.8NWgQ0ftP0ACHC1mTheyRBH6KTkAIb2ZjKDOrEBBQ1g";
+    // NOTE: preview build — points at the NEW backend project (lkwragvutaxgnjkxetlf),
+    // not the old bfjkzvkwxexuxggqbvnj the currently-live form posts to.
+    var SUPABASE_URL = "https://lkwragvutaxgnjkxetlf.supabase.co";
+    var SUPABASE_ANON_KEY = "sb_publishable_oYjVaBPf4drFGzfL1cCkeg_b1m5lZiB";
 
-    // checked-state styling for checkbox cards
+    function sbHeaders(extra){
+      var h = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY };
+      for(var k in (extra||{})) h[k] = extra[k];
+      return h;
+    }
+
+    // checked-state styling for checkbox cards (comms channels)
     document.querySelectorAll('.check-item input[type=checkbox]').forEach(function(cb){
       cb.addEventListener('change', function(){
         cb.closest('.check-item').classList.toggle('checked', cb.checked);
       });
     });
 
+    // ---------- GATED SIGNUP BAR ----------
+    var gatedWrap = document.getElementById('gatedWrap');
+    var gatedFill = document.getElementById('gatedFill');
+    var gatedCount = document.getElementById('gatedCount');
+    fetch(SUPABASE_URL + '/rest/v1/rpc/get_msaas_leads_count', {
+      method: 'POST',
+      headers: sbHeaders({ 'Content-Type': 'application/json' }),
+      body: '{}'
+    }).then(function(res){ return res.ok ? res.json() : null; })
+      .then(function(count){
+        if(typeof count !== 'number') return;
+        if(count >= 25){
+          gatedWrap.classList.add('gated-visible');
+          var pct = Math.min(100, Math.round((count / 100) * 100));
+          requestAnimationFrame(function(){ gatedFill.style.width = pct + '%'; });
+          gatedCount.textContent = count + ' / 100 in Cohort 01';
+        }
+      }).catch(function(err){ console.error('lead count fetch failed', err); });
+
+    // ---------- COMBOBOX (generic remote-filter) ----------
+    function debounce(fn, ms){
+      var t;
+      return function(){
+        var args = arguments, ctx = this;
+        clearTimeout(t);
+        t = setTimeout(function(){ fn.apply(ctx, args); }, ms);
+      };
+    }
+
+    function setupCombobox(opts){
+      function dropdownOpen(v){ opts.dropdownEl.classList.toggle('combo-open', v); }
+
+      function render(query){
+        var url = SUPABASE_URL + '/rest/v1/' + opts.table +
+          '?select=id,name' + (opts.extraSelect || '') +
+          '&is_active=eq.true&name=ilike.*' + encodeURIComponent(query) + '*' +
+          '&order=use_count.desc,name.asc&limit=6';
+        fetch(url, { headers: sbHeaders({}) })
+          .then(function(res){ return res.ok ? res.json() : []; })
+          .then(function(rows){
+            rows = rows || [];
+            opts.dropdownEl.innerHTML = '';
+            rows.forEach(function(row){
+              var d = document.createElement('div');
+              d.className = 'combo-option';
+              d.textContent = row.name;
+              d.addEventListener('mousedown', function(e){ e.preventDefault(); pick(row); });
+              opts.dropdownEl.appendChild(d);
+            });
+            var q = query.trim();
+            if(q.length > 0 && !rows.some(function(r){ return r.name.toLowerCase() === q.toLowerCase(); })){
+              var d2 = document.createElement('div');
+              d2.className = 'combo-option';
+              d2.innerHTML = '<span>Use "' + q.replace(/</g,'&lt;') + '"</span><span class="combo-new">new</span>';
+              d2.addEventListener('mousedown', function(e){ e.preventDefault(); pick({ id: null, name: q }); });
+              opts.dropdownEl.appendChild(d2);
+            }
+            dropdownOpen(true);
+          }).catch(function(err){ console.error('combobox fetch failed', err); });
+      }
+
+      function pick(row){
+        dropdownOpen(false);
+        opts.onSelect(row);
+      }
+
+      var debounced = debounce(function(){ render(opts.inputEl.value); }, 220);
+      opts.inputEl.addEventListener('input', function(){
+        if(opts.onTyping) opts.onTyping();
+        if(opts.inputEl.value.trim().length === 0){ dropdownOpen(false); return; }
+        debounced();
+      });
+      opts.inputEl.addEventListener('focus', function(){
+        if(opts.inputEl.value.trim().length > 0) render(opts.inputEl.value);
+      });
+      opts.inputEl.addEventListener('blur', function(){ setTimeout(function(){ dropdownOpen(false); }, 120); });
+    }
+
+    // -- Industry: single-select combobox --
+    var industryState = { id: null, name: '' };
+    setupCombobox({
+      table: 'industries',
+      inputEl: document.getElementById('f-industry'),
+      dropdownEl: document.getElementById('industryDropdown'),
+      onTyping: function(){
+        industryState = { id: null, name: document.getElementById('f-industry').value.trim() };
+        updateNavButtons();
+      },
+      onSelect: function(row){
+        industryState = { id: row.id, name: row.name };
+        document.getElementById('f-industry').value = row.name;
+        updateNavButtons();
+      }
+    });
+
+    // -- AI stack: repeatable single-select comboboxes (one tool per row, no parsing needed) --
+    var stackRowsEl = document.getElementById('stackRows');
+    var stackGroup = document.getElementById('stackGroup');
+    var stackReqTag = document.getElementById('stackReqTag');
+
+    function wireStackRow(rowEl){
+      var input = rowEl.querySelector('.stack-input');
+      var dropdown = rowEl.querySelector('.combo-dropdown');
+      input.dataset.id = '';
+      setupCombobox({
+        table: 'ai_stack_options',
+        extraSelect: ',category',
+        inputEl: input,
+        dropdownEl: dropdown,
+        onTyping: function(){ input.dataset.id = ''; updateNavButtons(); },
+        onSelect: function(row){
+          input.value = row.name;
+          input.dataset.id = row.id || '';
+          updateNavButtons();
+        }
+      });
+      input.addEventListener('blur', updateNavButtons);
+    }
+    wireStackRow(stackRowsEl.querySelector('.stack-row'));
+
+    document.getElementById('addStackRow').addEventListener('click', function(){
+      var row = document.createElement('div');
+      row.className = 'stack-row combo';
+      row.innerHTML =
+        '<input type="text" class="combo-input stack-input" autocomplete="off" placeholder="Another tool...">' +
+        '<div class="combo-dropdown"></div>' +
+        '<button type="button" class="stack-row-remove" aria-label="Remove this row">×</button>';
+      stackRowsEl.appendChild(row);
+      wireStackRow(row);
+      row.querySelector('.stack-row-remove').addEventListener('click', function(){ row.remove(); updateNavButtons(); });
+      row.querySelector('.stack-input').focus();
+    });
+
+    function getStackItems(){
+      return Array.from(stackRowsEl.querySelectorAll('.stack-input'))
+        .map(function(inp){ return { id: inp.dataset.id || null, name: inp.value.trim() }; })
+        .filter(function(item){ return item.name.length > 0; });
+    }
+
+    // -- AI stack is only required when the applicant manages AI (Agents or Both) --
+    function stackNeeded(){
+      var who = (document.querySelector('input[name=who_you_manage]:checked') || {}).value;
+      return who !== 'People';
+    }
+    function updateStackRequirement(){
+      var needed = stackNeeded();
+      var hide = (document.querySelector('input[name=who_you_manage]:checked') || {}).value === 'People';
+      stackGroup.style.display = hide ? 'none' : '';
+      stackReqTag.textContent = needed ? 'required' : 'optional';
+      stackReqTag.classList.toggle('req', needed);
+      stackReqTag.classList.toggle('opt', !needed);
+    }
+    document.querySelectorAll('input[name=who_you_manage]').forEach(function(r){
+      r.addEventListener('change', function(){ updateStackRequirement(); updateNavButtons(); });
+    });
+    updateStackRequirement();
+
+    // ---------- CAROUSEL (manual navigation only — every advance is a deliberate click) ----------
+    var track = document.getElementById('carouselTrack');
+    var current = 0;
+    var slideMeta = ['About You', 'Your Setup', 'Comms Channels', 'Value & Price'];
+
+    function goToSlide(i){
+      current = i;
+      track.style.transform = 'translateX(-' + (i * 100) + '%)';
+      document.getElementById('fieldCount').textContent = 'Step ' + (i + 1) + ' of 4 · ' + slideMeta[i];
+      for(var n = 1; n <= 4; n++){
+        var dot = document.getElementById('stepDot' + n);
+        var label = document.getElementById('stepLabel' + n);
+        dot.classList.toggle('step-current', n - 1 === i);
+        dot.classList.toggle('step-done', n - 1 < i);
+        dot.textContent = (n - 1 < i) ? '✓' : n;
+        if(label) label.classList.toggle('step-label-current', n - 1 === i);
+        if(n < 4){
+          document.getElementById('stepLine' + n).classList.toggle('step-line-done', n - 1 < i);
+        }
+      }
+    }
+
+    // ---------- EMAIL VALIDATION (mirrors the database's own check constraint) ----------
+    var EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    function isValidEmail(v){ return EMAIL_RE.test((v || '').trim()); }
+    var emailInput = document.getElementById('f-email');
+    var emailErrEl = document.getElementById('emailErr');
+    function refreshEmailError(){
+      var v = emailInput.value.trim();
+      if(v.length > 0 && !isValidEmail(v)){
+        emailInput.classList.add('field-invalid');
+        emailErrEl.textContent = 'Enter a valid email address (e.g. you@company.com).';
+      } else {
+        emailInput.classList.remove('field-invalid');
+        emailErrEl.textContent = '';
+      }
+    }
+    emailInput.addEventListener('blur', refreshEmailError);
+    emailInput.addEventListener('input', function(){
+      if(!emailInput.value.trim().length){ emailInput.classList.remove('field-invalid'); emailErrEl.textContent = ''; }
+      else if(isValidEmail(emailInput.value)){ emailInput.classList.remove('field-invalid'); emailErrEl.textContent = ''; }
+    });
+
+    // ---------- PER-SLIDE VALIDITY — Continue / File My Application stay disabled until required fields on that card are filled ----------
+    function slideValid(idx){
+      if(idx === 0){
+        var name = document.getElementById('f-name').value.trim();
+        var email = document.getElementById('f-email').value.trim();
+        var team = document.getElementById('f-team').value;
+        return name.length > 0 && isValidEmail(email) && !!team && !!industryState.name;
+      }
+      if(idx === 1){
+        var who = (document.querySelector('input[name=who_you_manage]:checked') || {}).value;
+        if(!who) return false;
+        if(stackNeeded() && getStackItems().length === 0) return false;
+        return true;
+      }
+      if(idx === 2){
+        return document.querySelectorAll('#commsChannels input:checked').length > 0;
+      }
+      if(idx === 3){
+        var pain = document.getElementById('f-pain').value.trim();
+        var pricing = (document.querySelector('input[name=pricing_willingness]:checked') || {}).value;
+        return pain.length > 0 && !!pricing;
+      }
+      return true;
+    }
+    function updateNavButtons(){
+      for(var i = 0; i <= 3; i++){
+        var nextBtn = document.querySelector('.btn-next[data-next="' + (i + 1) + '"]');
+        if(nextBtn) nextBtn.disabled = !slideValid(i);
+      }
+      var submitBtnEl = document.getElementById('submitBtn');
+      if(submitBtnEl && !submitBtnEl.dataset.filing) submitBtnEl.disabled = !slideValid(3);
+    }
+
+    document.querySelectorAll('.btn-next').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        if(btn.disabled) return;
+        goToSlide(+btn.dataset.next);
+      });
+    });
+    document.querySelectorAll('.btn-back').forEach(function(btn){
+      btn.addEventListener('click', function(){ goToSlide(+btn.dataset.back); });
+    });
+
+    // Live-update button state as any tracked field changes
+    ['f-name', 'f-email', 'f-pain'].forEach(function(id){
+      document.getElementById(id).addEventListener('input', updateNavButtons);
+    });
+    document.getElementById('f-team').addEventListener('change', updateNavButtons);
+    document.querySelectorAll('#commsChannels input').forEach(function(c){ c.addEventListener('change', updateNavButtons); });
+    document.querySelectorAll('input[name=pricing_willingness]').forEach(function(r){ r.addEventListener('change', updateNavButtons); });
+
+    goToSlide(0);
+    updateNavButtons();
+
+    // ---------- GROWABLE LOOKUP UPSERT (case-insensitive dedup, race-safe) ----------
+    function resolveLookup(table, item){
+      if(item.id) return Promise.resolve(item.id);
+      var name = item.name.trim();
+      if(!name) return Promise.resolve(null);
+      var findUrl = SUPABASE_URL + '/rest/v1/' + table + '?select=id,name&name=ilike.' + encodeURIComponent(name) + '&limit=1';
+      return fetch(findUrl, { headers: sbHeaders({}) })
+        .then(function(res){ return res.ok ? res.json() : []; })
+        .then(function(rows){
+          if(rows && rows.length) return rows[0].id;
+          return fetch(SUPABASE_URL + '/rest/v1/' + table, {
+            method: 'POST',
+            headers: sbHeaders({ 'Content-Type': 'application/json', 'Prefer': 'return=representation' }),
+            body: JSON.stringify({ name: name, source: 'user-submitted' })
+          }).then(function(res){
+            if(res.status === 201){
+              return res.json().then(function(rows2){ return rows2[0].id; });
+            }
+            // conflict (race: someone else inserted it) or any other error — re-fetch by name
+            return fetch(findUrl, { headers: sbHeaders({}) })
+              .then(function(r3){ return r3.ok ? r3.json() : []; })
+              .then(function(rows3){ return rows3 && rows3.length ? rows3[0].id : null; });
+          });
+        });
+    }
+
+    // ---------- SUBMIT ----------
     var form = document.getElementById('leadForm');
     var msg = document.getElementById('formMsg');
     var btn = document.getElementById('submitBtn');
@@ -894,44 +1203,51 @@
       msg.textContent = '';
       msg.className = 'form-msg';
 
-      var manageWhat = Array.from(document.querySelectorAll('#manageWhat input:checked')).map(function(i){return i.value;});
-      var topPersona = Array.from(document.querySelectorAll('#topPersona input:checked')).map(function(i){return i.value;});
-      var commsChannels = Array.from(document.querySelectorAll('#commsChannels input:checked')).map(function(i){return i.value;});
+      var commsChannels = Array.from(document.querySelectorAll('#commsChannels input:checked')).map(function(i){ return i.value; });
+      var whoYouManage = (document.querySelector('input[name=who_you_manage]:checked') || {}).value;
+      var pricingWillingness = (document.querySelector('input[name=pricing_willingness]:checked') || {}).value;
+      var stackItems = getStackItems();
 
-      if(manageWhat.length === 0){
-        msg.textContent = 'Pick at least one thing you\'d want managed.';
-        msg.className = 'form-msg err';
-        return;
-      }
-
-      var payload = {
-        email: document.getElementById('f-email').value.trim(),
-        name: document.getElementById('f-name').value.trim() || null,
-        role: document.getElementById('f-role').value.trim() || null,
-        team_size: document.getElementById('f-team').value,
-        manage_what: manageWhat,
-        top_persona: topPersona,
-        current_tools: document.getElementById('f-tools').value.trim() || null,
-        ai_stack: document.getElementById('f-stack').value.trim() || null,
-        comms_channels: commsChannels,
-        budget_reaction: (document.querySelector('input[name=budget_reaction]:checked') || {}).value || null,
-        biggest_pain: document.getElementById('f-pain').value.trim() || null,
-        comments: document.getElementById('f-comments').value.trim() || null,
-        source: 'hiremaas_landing'
-      };
+      if(!industryState.name){ msg.textContent = 'Add an industry/domain before filing.'; msg.className = 'form-msg err'; goToSlide(0); return; }
+      if(!whoYouManage){ msg.textContent = 'Fill in "Your Setup" before filing.'; msg.className = 'form-msg err'; goToSlide(1); return; }
+      if(stackNeeded() && stackItems.length === 0){ msg.textContent = 'Add at least one AI stack entry before filing.'; msg.className = 'form-msg err'; goToSlide(1); return; }
+      if(commsChannels.length === 0){ msg.textContent = 'Pick at least one comms channel.'; msg.className = 'form-msg err'; goToSlide(2); return; }
+      if(!pricingWillingness){ msg.textContent = 'Pick what this would be worth to you.'; msg.className = 'form-msg err'; return; }
 
       btn.disabled = true;
+      btn.dataset.filing = '1';
       btn.textContent = 'Filing…';
 
-      fetch(SUPABASE_URL + '/rest/v1/msaas_leads', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify(payload)
+      Promise.all([
+        resolveLookup('industries', industryState),
+        Promise.all(stackItems.map(function(s){ return resolveLookup('ai_stack_options', s); }))
+      ]).then(function(results){
+        var industryId = results[0];
+        var stackIds = results[1].filter(Boolean);
+
+        var payload = {
+          email: document.getElementById('f-email').value.trim(),
+          full_name: document.getElementById('f-name').value.trim() || null,
+          company_name: document.getElementById('f-company').value.trim() || null,
+          role: document.getElementById('f-role').value.trim() || null,
+          team_size: document.getElementById('f-team').value,
+          industry_domain_id: industryId,
+          who_you_manage: whoYouManage,
+          ai_stack_ids: stackIds,
+          current_tools: document.getElementById('f-tools').value.trim() || null,
+          comms_channels: commsChannels,
+          biggest_pain_point: document.getElementById('f-pain').value.trim(),
+          pricing_willingness: pricingWillingness,
+          additional_comments: document.getElementById('f-comments').value.trim() || null,
+          source: 'hiremaas_landing_redesign',
+          form_version: '2026-09-redesign'
+        };
+
+        return fetch(SUPABASE_URL + '/rest/v1/msaas_leads', {
+          method: 'POST',
+          headers: sbHeaders({ 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }),
+          body: JSON.stringify(payload)
+        });
       }).then(function(res){
         if(!res.ok){ return res.text().then(function(t){ throw new Error(t || ('HTTP ' + res.status)); }); }
         form.style.display = 'none';
@@ -939,6 +1255,7 @@
       }).catch(function(err){
         msg.textContent = 'Something went wrong filing this — try again in a moment.';
         msg.className = 'form-msg err';
+        delete btn.dataset.filing;
         btn.disabled = false;
         btn.textContent = 'File My Application →';
         console.error(err);
@@ -960,12 +1277,14 @@
     // 0 Intellectual, 1 Artist, 2 Singer, 3 Diplomat, 4 Analyst, 5 Orchestrator — hexagon order, neighbors = |i-j| mod 6 === 1
 
     var scenarios = [
-      { label:'Design Review', active:[1,2], desc:'Artist + Singer — creative judgment paired with a story people want to follow.' },
-      { label:'Strategy Meeting', active:[5,4], desc:'Orchestrator + Analyst — AI-stack judgment paired with the numbers.' },
+      { label:'Performance Review', active:[3,4], desc:'Diplomat + Analyst — an HR manager’s coaching conversation, grounded in the numbers, not just gut feel.' },
+      { label:'Shift Handover', active:[4,2], desc:'Analyst + Singer — a shift manager briefing the incoming crew on what’s outstanding and what needs attention now.' },
+      { label:'Roadmap Prioritization', active:[0,4], desc:'Intellectual + Analyst — a product manager reasoning through what ships next, backed by the data.' },
+      { label:'Guest Escalation', active:[3,2], desc:'Diplomat + Singer — a front desk manager defusing an upset guest while still making them feel welcome.' },
       { label:'Support Escalation', active:[3,0], desc:'Diplomat + Intellectual — de-escalate the moment, then reason through the fix.' },
-      { label:'Sprint Planning', active:[4,5,0], desc:'Analyst + Orchestrator + Intellectual — ops discipline, AI routing, and the strategic call.' },
       { label:'Culture Offsite', active:[1,2,3], desc:'Artist + Singer + Diplomat — culture, vision, and the room dynamics, all at once.' },
-      { label:'All Six', active:[0,1,2,3,4,5], desc:'Every persona, connected — the full range this manager can hold at once.' }
+      { label:'All Six', active:[0,1,2,3,4,5], desc:'Every persona, connected — the full range this manager can hold at once.' },
+      { label:'Robotics → Cybernetics', active:[5,4], desc:'Orchestrator + Analyst — the posture for handing off physical or embodied systems, not just software agents.' }
     ];
 
     var stage = document.getElementById('personaStage');
