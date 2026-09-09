@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HireMAAS API</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+    :root {
+      --ink-950: #12161F;
+      --ink-900: #161B26;
+      --ink-850: #1C2230;
+      --ink-800: #242B3B;
+      --parchment: #EDE3CC;
+      --brass: #C99A44;
+      --brass-bright: #E0B563;
+      --ivory: #F3EFE4;
+      --ok: #8FAE7C;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'IBM Plex Sans', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--ink-950);
+      color: var(--ivory);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      font-family: var(--font-display);
+      color: var(--brass-bright);
+    }
+
+    code {
+      background: var(--ink-800);
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: var(--brass);
+      color: var(--ink-950);
+      border-radius: 4px;
+      font-weight: 600;
+      margin: 1rem 0;
+    }
+
+    .endpoint {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      border-left: 3px solid var(--brass);
+      background: var(--ink-900);
+    }
+
+    .endpoint code {
+      display: block;
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>HireMAAS API</h1>
+  <div class="status">🚧 Status Page (Coming Soon)</div>
+
+  <h2>What This Is</h2>
+  <p>This is the API backend for the HireMAAS manager-as-a-service platform. The full API implementation is coming soon.</p>
+
+  <h2>Planned Endpoints</h2>
+
+  <div class="endpoint">
+    <strong>Authentication</strong>
+    <code>POST /auth/login</code>
+    <code>POST /auth/verify</code>
+  </div>
+
+  <div class="endpoint">
+    <strong>Manager Information</strong>
+    <code>GET /managers/:managerId</code>
+    <code>GET /managers/:managerId/jobs</code>
+    <code>GET /managers/:managerId/schedule</code>
+  </div>
+
+  <div class="endpoint">
+    <strong>Jobs & Updates</strong>
+    <code>GET /jobs</code>
+    <code>GET /jobs/:jobId</code>
+  </div>
+
+  <div class="endpoint">
+    <strong>Performance Metrics</strong>
+    <code>GET /metrics/:managerId</code>
+    <code>GET /metrics/:managerId/history</code>
+  </div>
+
+  <div class="endpoint">
+    <strong>Customer Profile</strong>
+    <code>GET /customers/profile</code>
+    <code>GET /customers/dashboard</code>
+  </div>
+
+  <h2>Technology Stack</h2>
+  <ul>
+    <li><strong>Backend:</strong> Node.js + Express.js</li>
+    <li><strong>Database:</strong> Supabase (PostgreSQL)</li>
+    <li><strong>Authentication:</strong> JWT</li>
+    <li><strong>Deployment:</strong> Coming soon (Vercel/Railway/Custom)</li>
+  </ul>
+
+  <h2>Documentation</h2>
+  <p>Full API documentation, database schema, and implementation details are in development.</p>
+  <p style="margin-top: 2rem; color: var(--brass); font-size: 0.9em;">Last updated: 2026-09-02</p>
+</body>
+</html>
