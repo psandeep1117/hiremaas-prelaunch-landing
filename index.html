@@ -735,6 +735,14 @@
       </div>
 
       <form id="leadForm">
+        <!-- Honeypot: real form fields are never off-screen like this. Humans never see or fill
+             it; simple bots that auto-fill every input do. Server-side rate limiting is the real
+             defense (see msaas_leads BEFORE INSERT trigger) — this just catches unsophisticated
+             bots cheaply and quietly. -->
+        <div aria-hidden="true" style="position:absolute; left:-9999px; top:-9999px; width:1px; height:1px; overflow:hidden;">
+          <label for="f-website">Leave this field blank</label>
+          <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
+        </div>
         <div class="carousel-viewport">
           <div class="carousel-track" id="carouselTrack">
 
@@ -1202,6 +1210,15 @@
       e.preventDefault();
       msg.textContent = '';
       msg.className = 'form-msg';
+
+      // Honeypot tripped — a bot filled a field real users never see. Pretend success and
+      // walk away quietly rather than telling it what caught it.
+      var hp = document.getElementById('f-website');
+      if(hp && hp.value){
+        form.style.display = 'none';
+        document.getElementById('successPanel').style.display = 'flex';
+        return;
+      }
 
       var commsChannels = Array.from(document.querySelectorAll('#commsChannels input:checked')).map(function(i){ return i.value; });
       var whoYouManage = (document.querySelector('input[name=who_you_manage]:checked') || {}).value;
