@@ -735,10 +735,13 @@
       </div>
 
       <form id="leadForm">
-        <!-- Honeypot: real form fields are never off-screen like this. Humans never see or fill
+        <!-- Story HM-01ac0d6 — "Add spam/abuse protection to the intake-form insert endpoint"
+             (Kanban, Security & Hardening: https://app.notion.com/3d9a4a681b71810088a6ea10a01ac0d6)
+             Honeypot: real form fields are never off-screen like this. Humans never see or fill
              it; simple bots that auto-fill every input do. Server-side rate limiting is the real
-             defense (see msaas_leads BEFORE INSERT trigger) — this just catches unsophisticated
-             bots cheaply and quietly. -->
+             defense (msaas_leads BEFORE INSERT trigger enforce_lead_rate_limit — same story,
+             tagged via COMMENT ON in HireMaas_DB since it isn't tracked in this repo) — this
+             just catches unsophisticated bots cheaply and quietly. -->
         <div aria-hidden="true" style="position:absolute; left:-9999px; top:-9999px; width:1px; height:1px; overflow:hidden;">
           <label for="f-website">Leave this field blank</label>
           <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
