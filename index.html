@@ -524,6 +524,22 @@
   .foot-row{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
   .foot-row .wordmark{ opacity:.7; }
   footer p.legal{ font-size:12.5px; color:var(--slate-dim); max-width:60ch; margin-top:22px; }
+  .badge-argent{
+    font-family: var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    color: var(--slate);
+    text-decoration:none;
+    border:1px solid var(--line-strong);
+    padding:7px 13px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:22px;
+    transition: border-color .15s, color .15s;
+  }
+  .badge-argent b{ color:var(--brass-bright); font-weight:600; }
+  .badge-argent:hover{ border-color:var(--brass); color:var(--ivory); }
 
   /* ---------- GATED SIGNUP BAR ---------- */
   .pricing-banner{ border:1px solid var(--line); background: var(--ink-900); padding:24px 32px; margin-bottom:36px; }
@@ -900,6 +916,7 @@
       <div class="wordmark"><b>MAAS</b><span>/ manager-as-a-service</span></div>
       <div class="eyebrow" style="margin:0;">Status: Pre-Launch</div>
     </div>
+    <a class="badge-argent" href="https://argentai.io/labs/hiremaas" target="_blank" rel="noopener">A product of <b>ArgentAI</b></a>
     <p class="legal">MAAS is in pre-launch. Nothing on this page is a binding offer or a completed product — terms may change before general availability.</p>
   </div>
 </footer>
